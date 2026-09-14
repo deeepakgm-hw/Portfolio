@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --charcoal: #14120F;
+  --charcoal-2: #1E1B16;
+  --cream: #F0EBE0;
+  --ink: #1B1812;
+  --violet: #6C5CE7;
+  --ember: #B8451F;
+  --muted-dark: #A39B8B;
+  --muted-light: #7A7364;
+  --hair-dark: rgba(240, 235, 224, 0.14);
+  --hair-light: rgba(27, 24, 18, 0.14);
+}

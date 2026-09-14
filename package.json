@@ -1,0 +1,20 @@
+{
+  "name": "fullstack-portfolio",
+  "version": "1.0.0",
+  "description": "Full-stack portfolio project with dynamic REST API, SQLite persistence, and modular frontend",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js",
+    "test": "node server/test.js"
+  },
+  "keywords": ["portfolio", "full-stack", "express", "sqlite", "threejs", "gsap"],
+  "author": "Jordan Reyes",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "sqlite3": "^5.1.7"
+  }
+}

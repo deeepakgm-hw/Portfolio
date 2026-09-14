@@ -1,0 +1,172 @@
+/* ---------- Close & Contact (dark, theatrical) ---------- */
+#close {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#close .label {
+  font-size: 14px;
+  color: var(--muted-dark);
+  margin-bottom: 20px;
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px;
+  align-items: start;
+}
+
+#close h2 {
+  font-size: clamp(40px, 7.5vw, 110px);
+  line-height: 0.95;
+}
+
+#close h2 a {
+  border-bottom: 1px solid var(--hair-dark);
+  transition: border-color 0.3s, color 0.3s;
+}
+
+#close h2 a:hover {
+  border-color: var(--violet);
+  color: var(--violet);
+}
+
+/* Contact Form */
+.contact-card {
+  background: var(--charcoal-2);
+  border: 1px solid var(--hair-dark);
+  padding: clamp(24px, 4vw, 36px);
+  border-radius: 4px;
+}
+
+.contact-card h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.contact-card p.form-desc {
+  font-size: 14px;
+  color: var(--muted-dark);
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--muted-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: rgba(20, 18, 15, 0.6);
+  border: 1px solid var(--hair-dark);
+  color: var(--cream);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 15px;
+  padding: 12px 14px;
+  border-radius: 2px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--violet);
+  box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+}
+
+.form-group textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.btn-submit {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  background: var(--violet);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  cursor: pointer;
+  border-radius: 2px;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: #5b4cdb;
+  transform: translateY(-1px);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-status {
+  margin-top: 14px;
+  font-size: 13px;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 10px;
+  border-radius: 2px;
+  display: none;
+}
+
+.form-status.success {
+  display: block;
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.form-status.error {
+  display: block;
+  background: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.close-foot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 64px;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 14px;
+  color: var(--muted-dark);
+}
+
+.close-foot .socials {
+  display: flex;
+  gap: 20px;
+}
+
+.close-foot .socials a:hover {
+  color: var(--cream);
+}
+
+@media (max-width: 900px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}

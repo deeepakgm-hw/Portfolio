@@ -1,0 +1,147 @@
+/* ---------- Admin Dashboard Styles ---------- */
+.admin-body {
+  background: var(--charcoal);
+  color: var(--cream);
+  min-height: 100vh;
+  padding: 40px clamp(20px, 6vw, 64px);
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--hair-dark);
+  padding-bottom: 24px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.admin-header h1 {
+  font-size: clamp(28px, 4vw, 44px);
+}
+
+.admin-nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.btn-secondary {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  padding: 8px 16px;
+  border: 1px solid var(--hair-dark);
+  color: var(--cream);
+  background: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--violet);
+  color: var(--violet);
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--hair-dark);
+  padding-bottom: 12px;
+}
+
+.admin-tab {
+  background: none;
+  border: none;
+  color: var(--muted-dark);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.admin-tab.active {
+  color: var(--violet);
+  font-weight: 600;
+  border-bottom: 2px solid var(--violet);
+}
+
+.admin-panel {
+  display: none;
+}
+
+.admin-panel.active {
+  display: block;
+}
+
+/* Card list */
+.data-card {
+  background: var(--charcoal-2);
+  border: 1px solid var(--hair-dark);
+  padding: 24px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.data-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.data-card-header h3 {
+  font-size: 20px;
+}
+
+.data-card-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--muted-dark);
+}
+
+.data-card-body {
+  color: var(--cream);
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.data-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.btn-danger {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  padding: 6px 12px;
+  border: 1px solid rgba(231, 76, 60, 0.4);
+  color: #e74c3c;
+  background: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-danger:hover {
+  background: rgba(231, 76, 60, 0.15);
+}
+
+/* Project Form Modal / Inline */
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 650px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

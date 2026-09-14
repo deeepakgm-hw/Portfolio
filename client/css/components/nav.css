@@ -1,0 +1,52 @@
+/* ---------- Nav ---------- */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px clamp(20px, 5vw, 56px);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  mix-blend-mode: difference;
+  color: var(--cream);
+  pointer-events: auto;
+}
+
+nav .mark {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-size: 15px;
+  color: var(--cream);
+}
+
+nav .links {
+  display: flex;
+  gap: 28px;
+  font-size: 14px;
+}
+
+nav .links a {
+  color: var(--cream);
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+nav .links a:hover {
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  nav {
+    padding: 18px clamp(16px, 4vw, 24px);
+  }
+  nav .links {
+    gap: 16px;
+    font-size: 13px;
+  }
+}

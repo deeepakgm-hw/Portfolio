@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jordan Reyes — Software Engineer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root{
+  --charcoal:#14120F;
+  --charcoal-2:#1E1B16;
+  --cream:#F0EBE0;
+  --ink:#1B1812;
+  --violet:#6C5CE7;
+  --ember:#B8451F;
+  --muted-dark:#A39B8B;
+  --muted-light:#7A7364;
+  --hair-dark: rgba(240,235,224,0.14);
+  --hair-light: rgba(27,24,18,0.14);
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'IBM Plex Sans', sans-serif;
+  background:var(--charcoal);
+  color:var(--cream);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{ background:var(--violet); color:var(--cream); }
+a{ color:inherit; text-decoration:none; }
+:focus-visible{ outline:2px solid var(--violet); outline-offset:3px; }
+
+.display{
+  font-family:'Big Shoulders Display', sans-serif;
+  font-weight:900;
+  text-transform:uppercase;
+  line-height:0.86;
+  letter-spacing:-0.01em;
+}
+.mono{ font-family:'IBM Plex Mono', monospace; }
+
+/* ---------- Loader ---------- */
+#loader{
+  position:fixed; inset:0; z-index:999;
+  background:var(--charcoal);
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column;
+}
+#loader .lines{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:clamp(12px,1.6vw,15px);
+  color:var(--muted-dark);
+  min-height:120px;
+  text-align:left;
+}
+#loader .lines div{ opacity:0; margin-bottom:6px; }
+#loader .lines div.show{ opacity:1; }
+#loader .lines .ok{ color:var(--violet); }
+#loader .bar{
+  width:min(260px,60vw); height:2px; background:var(--hair-dark);
+  margin-top:28px; position:relative; overflow:hidden;
+}
+#loader .bar::after{
+  content:''; position:absolute; left:0; top:0; bottom:0; width:0%;
+  background:var(--ember);
+  transition:width 1.6s cubic-bezier(.6,0,.2,1);
+}
+#loader.loading .bar::after{ width:100%; }
+#loader-curtain{
+  position:fixed; inset:0; z-index:998; background:var(--charcoal);
+  transform:translateY(0%);
+}
+
+/* ---------- Nav ---------- */
+nav{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:22px clamp(20px,5vw,56px);
+  background:transparent;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  border:none;
+  mix-blend-mode:difference;
+  color:var(--cream);
+}
+nav .mark{ font-weight:700; letter-spacing:0.02em; font-size:15px; color:var(--cream); }
+nav .links{ display:flex; gap:28px; font-size:14px; }
+nav .links a{ color:var(--cream); opacity:0.8; transition:opacity .2s; }
+nav .links a:hover{ opacity:1; }
+
+/* ---------- Sections base ---------- */
+section{ position:relative; }
+.dark{ background:var(--charcoal); color:var(--cream); }
+.light{ background:var(--cream); color:var(--ink); }
+.pad{ padding:clamp(80px,12vw,160px) clamp(20px,6vw,64px); }
+
+/* ---------- Hero ---------- */
+#hero{
+  min-height:100vh; min-height:100dvh; display:flex; flex-direction:column; justify-content:space-between;
+  padding-top:clamp(84px, 12vh, 120px);
+  padding-bottom:clamp(32px, 5vh, 56px);
+  padding-left:clamp(20px, 6vw, 56px);
+  padding-right:clamp(20px, 6vw, 56px);
+  box-sizing:border-box;
+  overflow:hidden;
+}
+#hero-canvas{ position:absolute; inset:0; z-index:1; pointer-events:none; }
+.hero-inner{ position:relative; z-index:2; margin-top:auto; width:100%; }
+
+.hero-status-bar{
+  display:flex; align-items:center; gap:clamp(16px, 3vw, 28px);
+  margin-bottom:clamp(18px, 2.5vh, 26px); flex-wrap:wrap;
+}
+.status-item{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:clamp(10.5px, 1vw, 12px); color:var(--muted-dark);
+  letter-spacing:0.08em; text-transform:uppercase;
+}
+.status-dot{
+  width:6px; height:6px; border-radius:50%; background:#2ecc71;
+  box-shadow:0 0 8px rgba(46,204,113,0.7); position:relative; display:inline-block; flex-shrink:0;
+}
+.status-dot::after{
+  content:''; position:absolute; inset:-3px; border-radius:50%;
+  border:1px solid rgba(46,204,113,0.6);
+  animation:statusPulse 2.4s cubic-bezier(0.2,0.8,0.2,1) infinite;
+}
+@keyframes statusPulse{
+  0%{ transform:scale(0.8); opacity:1; }
+  100%{ transform:scale(2.4); opacity:0; }
+}
+.status-loc{ opacity:0.75; }
+
+.hero-intro{ margin-bottom:clamp(20px, 3vh, 32px); }
+#hero .kicker{
+  font-size:clamp(13px, 1.25vw, 15px); color:var(--cream); opacity:0.9;
+  margin-bottom:6px; max-width:48ch; line-height:1.45;
+}
+.hero-intro .intro-sub{
+  font-family:'IBM Plex Sans', sans-serif; font-size:clamp(13px, 1.2vw, 15px);
+  color:var(--muted-dark); max-width:48ch; line-height:1.55; font-weight:400;
+}
+
+#hero h1{
+  font-size:clamp(48px, 9.4vw, 156px); line-height:0.86;
+  text-transform:uppercase; letter-spacing:-0.015em; display:block;
+  margin-bottom:clamp(26px, 4vh, 40px);
+}
+#hero h1 span{ display:block; }
+#hero h1 .accent{ color:var(--violet); }
+
+.hero-actions{
+  display:flex; gap:clamp(24px, 4vw, 44px); align-items:center;
+  flex-wrap:wrap; margin-bottom:clamp(28px, 4.5vh, 48px);
+}
+.hero-cta{
+  display:inline-flex; align-items:center; gap:8px; color:var(--cream);
+  font-size:clamp(12.5px, 1.15vw, 14px); letter-spacing:0.08em;
+  text-transform:uppercase; text-decoration:none; padding:6px 0;
+  position:relative; cursor:pointer;
+  transition:color .25s ease, letter-spacing .25s ease;
+}
+.hero-cta::after{
+  content:''; position:absolute; bottom:0; left:0; width:100%; height:1px;
+  background:rgba(240,235,224,0.35);
+  transition:background-color .25s ease, height .25s ease;
+}
+.hero-cta .cta-arrow{
+  display:inline-block; font-size:1.1em; color:var(--violet);
+  transition:transform .25s cubic-bezier(0.16,1,0.3,1), color .25s ease;
+}
+.hero-cta:hover{ color:#fff; letter-spacing:0.11em; }
+.hero-cta:hover::after{ background:var(--violet); height:1.5px; }
+.hero-cta:hover .cta-arrow{ transform:translate(3px, -3px); color:#fff; }
+
+.hero-cta-alt{ color:var(--muted-dark); }
+.hero-cta-alt::after{ background:rgba(163,155,139,0.3); }
+.hero-cta-alt .cta-arrow{ color:var(--muted-dark); }
+.hero-cta-alt:hover{ color:var(--cream); letter-spacing:0.11em; }
+.hero-cta-alt:hover::after{ background:var(--cream); height:1.5px; }
+.hero-cta-alt:hover .cta-arrow{ transform:translate(3px, -3px); color:var(--violet); }
+
+.hero-foot{
+  display:flex; justify-content:space-between; align-items:flex-end;
+  gap:28px; flex-wrap:wrap; border-top:1px solid var(--hair-dark);
+  padding-top:clamp(20px, 3vh, 32px);
+}
+.hero-foot p{ max-width:48ch; color:var(--muted-dark); font-size:clamp(14px, 1.3vw, 15.5px); line-height:1.55; }
+
+.scroll-cue{
+  display:inline-flex; align-items:center; gap:12px; color:var(--muted-dark);
+  font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase;
+  text-decoration:none; cursor:pointer; white-space:nowrap; padding:6px 0;
+  transition:color .25s ease;
+}
+.scroll-cue .cue-line{
+  width:26px; height:1px; background:var(--hair-dark); display:inline-block;
+  transition:width .3s cubic-bezier(0.16,1,0.3,1), background-color .3s ease;
+}
+.scroll-cue .cue-arrow{
+  display:inline-block; transition:transform .25s ease, color .25s ease;
+  animation:scrollBounce 2.2s ease-in-out infinite;
+}
+.scroll-cue:hover{ color:var(--cream); }
+.scroll-cue:hover .cue-line{ width:38px; background:var(--violet); }
+.scroll-cue:hover .cue-arrow{ color:var(--violet); }
+@keyframes scrollBounce{
+  0%, 100%{ transform:translateY(0); }
+  50%{ transform:translateY(4px); }
+}
+
+/* ---------- Manifesto (light) ---------- */
+#manifesto p{
+  font-size:clamp(22px,3.4vw,38px);
+  line-height:1.35;
+  max-width:20ch;
+  font-weight:500;
+}
+#manifesto p .em{ color:var(--ember); }
+
+/* ---------- Work (dark, modular) ---------- */
+#work-head{ padding:clamp(60px,10vw,110px) clamp(20px,6vw,56px) 0; }
+#work-head h2{ font-size:clamp(38px,6vw,72px); }
+.case{
+  display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
+  padding:64px clamp(20px,6vw,56px); border-top:1px solid var(--hair-dark);
+}
+.case:nth-child(even) .case-media{ order:2; }
+.case-media{
+  aspect-ratio:4/3; border-radius:2px; overflow:hidden;
+  background:linear-gradient(135deg, var(--charcoal-2), #2A251D);
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--hair-dark);
+}
+.case-media .glyph{ font-size:15vw; color:var(--hair-dark); font-family:'Big Shoulders Display'; }
+.case-body .tag{ font-size:13px; color:var(--muted-dark); margin-bottom:14px; }
+.case-body h3{ font-size:clamp(28px,3.6vw,46px); margin-bottom:16px; }
+.case-body p{ color:var(--muted-dark); line-height:1.6; max-width:48ch; margin-bottom:20px; font-size:15.5px;}
+.case-body .stack{ display:flex; gap:10px; flex-wrap:wrap; }
+.case-body .stack span{
+  font-size:12.5px; font-family:'IBM Plex Mono'; color:var(--cream);
+  border:1px solid var(--hair-dark); padding:4px 10px; border-radius:20px;
+}
+
+/* ---------- Process (light, print columns) ---------- */
+#process{ }
+.process-grid{
+  display:grid; grid-template-columns:1.1fr 1fr; gap:64px;
+}
+#process h2{ font-size:clamp(34px,5vw,58px); margin-bottom:20px; }
+#process .lede{ font-size:18px; line-height:1.6; color:var(--muted-light); max-width:52ch; }
+.steps{ border-top:1px solid var(--hair-light); }
+.step{
+  display:grid; grid-template-columns:56px 1fr; gap:20px;
+  padding:26px 0; border-bottom:1px solid var(--hair-light);
+}
+.step .n{ font-family:'IBM Plex Mono'; color:var(--ember); font-size:14px; padding-top:3px; }
+.step h4{ font-size:18px; margin-bottom:6px; }
+.step p{ color:var(--muted-light); font-size:14.5px; line-height:1.55; max-width:42ch; }
+
+/* ---------- Close (dark, theatrical) ---------- */
+#close{
+  min-height:80vh; display:flex; flex-direction:column; justify-content:center;
+}
+#close .label{ font-size:14px; color:var(--muted-dark); margin-bottom:20px; }
+#close h2{ font-size:clamp(46px,9vw,132px); }
+#close h2 a{ border-bottom:1px solid var(--hair-dark); transition:border-color .3s; }
+#close h2 a:hover{ border-color:var(--violet); color:var(--violet); }
+.close-foot{
+  display:flex; justify-content:space-between; margin-top:64px; flex-wrap:wrap; gap:20px;
+  font-size:14px; color:var(--muted-dark);
+}
+.close-foot .socials{ display:flex; gap:20px; }
+.close-foot .socials a:hover{ color:var(--cream); }
+
+/* ---------- reveal ---------- */
+.reveal{ opacity:0; transform:translateY(28px); }
+
+@media (max-width: 780px){
+  .case{ grid-template-columns:1fr; }
+  .case:nth-child(even) .case-media{ order:0; }
+  .process-grid{ grid-template-columns:1fr; }
+}
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+}
+</style>
+</head>
+<body>
+
+<div id="loader" class="loading">
+  <div class="lines mono" id="loader-lines"></div>
+  <div class="bar"></div>
+</div>
+<div id="loader-curtain"></div>
+
+<nav>
+  <a class="mark" href="#hero">Deepak GM</a>
+  <div class="links">
+    <a href="#work-head">Work</a>
+    <a href="#process">Process</a>
+    <a href="#close">Contact</a>
+  </div>
+</nav>
+
+<section id="hero" class="dark">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <!-- Availability / Location Metadata Micro-label -->
+    <div class="hero-status-bar mono">
+      <div class="status-item">
+        <span class="status-dot"></span>
+        <span>AVAILABLE FOR SELECT PROJECTS</span>
+      </div>
+      <div class="status-item status-loc">
+        <span>BASED IN INDIA · IST</span>
+      </div>
+    </div>
+
+    <!-- Introduction -->
+    <div class="hero-intro">
+      <p class="kicker mono">Software Engineer — systems, interfaces, the occasional 3AM incident</p>
+      <p class="intro-sub">I build products where engineering, interaction and visual design meet.</p>
+    </div>
+
+    <!-- Oversized Editorial Headline -->
+    <h1 class="display">
+      <span>Imagine</span>
+      <span class="accent">Learn,</span>
+      <span>Work</span>
+      <span>Win.</span>
+    </h1>
+
+    <!-- Primary Text-Based Calls to Action -->
+    <div class="hero-actions">
+      <a href="#work-head" class="hero-cta mono">
+        <span class="cta-label">VIEW MY WORK</span>
+        <span class="cta-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a href="#close" class="hero-cta hero-cta-alt mono">
+        <span class="cta-label">LET'S CONNECT</span>
+        <span class="cta-arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+    <!-- Hero Foot & Scroll Indicator -->
+    <div class="hero-foot">
+      <p>I build products that hold up under real traffic — from the database up to the pixel. Ten years turning ambitious roadmaps into software that ships, and occasionally into technical debt I fully intend to pay off.</p>
+      <a href="#manifesto" class="scroll-cue mono" aria-label="Scroll to explore">
+        <span class="cue-label">SCROLL TO EXPLORE</span>
+        <span class="cue-line" aria-hidden="true"></span>
+        <span class="cue-arrow" aria-hidden="true">↓</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="manifesto" class="light pad">
+  <p>Good engineering is <span class="em">invisible</span> until it isn't. I try to make the boring parts — auth, sync, migrations — disappear, so the interesting parts get the attention.</p>
+</section>
+
+<section class="dark">
+  <div id="work-head">
+    <h2 class="display">Selected<br>Work</h2>
+  </div>
+
+  <article class="case">
+    <div class="case-media"><span class="glyph">01</span></div>
+    <div class="case-body">
+      <p class="tag mono">2025 — Realtime infrastructure</p>
+      <h3 class="display" style="text-transform:none;">Nimbus Sync Engine</h3>
+      <p>Rebuilt the collaboration layer for a 40-person design tool from a polling API to a CRDT-backed WebSocket engine. Cut sync latency from ~800ms to under 60ms and made concurrent editing actually pleasant.</p>
+      <div class="stack">
+        <span>Rust</span><span>WebSockets</span><span>CRDT</span><span>Redis</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="case">
+    <div class="case-media"><span class="glyph">02</span></div>
+    <div class="case-body">
+      <p class="tag mono">2024 — Platform migration</p>
+      <h3 class="display" style="text-transform:none;">Atlas Analytics</h3>
+      <p>Led the migration of a legacy reporting stack to a streaming pipeline, replacing 6-hour nightly batch jobs with sub-minute dashboards, without a single day of downtime for finance.</p>
+      <div class="stack">
+        <span>Kafka</span><span>dbt</span><span>Snowflake</span><span>TypeScript</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="case">
+    <div class="case-media"><span class="glyph">03</span></div>
+    <div class="case-body">
+      <p class="tag mono">2023 — Design systems</p>
+      <h3 class="display" style="text-transform:none;">Drift Components</h3>
+      <p>Designed and shipped an internal component library adopted across 12 product teams, cutting new-feature build time by roughly a third and finally killing four competing button styles.</p>
+      <div class="stack">
+        <span>React</span><span>Storybook</span><span>Figma Tokens</span>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section id="process" class="light pad">
+  <div class="process-grid">
+    <div>
+      <h2 class="display">How I<br>Work</h2>
+      <p class="lede">Less about frameworks, more about how a system of people and code stays sane as it grows. A rough version of the loop I run on most projects:</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="n mono">01</span>
+        <div><h4>Find the real constraint</h4><p>Usually it isn't the one in the ticket. I dig until I find the thing actually limiting the system.</p></div>
+      </div>
+      <div class="step">
+        <span class="n mono">02</span>
+        <div><h4>Prototype in the ugly version</h4><p>A working, unstyled thing beats a polished mockup for deciding if an idea survives contact with data.</p></div>
+      </div>
+      <div class="step">
+        <span class="n mono">03</span>
+        <div><h4>Instrument before you optimize</h4><p>No performance work starts without a number to move. Otherwise it's just vibes with extra steps.</p></div>
+      </div>
+      <div class="step">
+        <span class="n mono">04</span>
+        <div><h4>Leave it better documented</h4><p>The next person touching this code is probably me, in six months, having forgotten everything.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="close" class="dark pad">
+  <p class="label mono">Currently open to new roles &amp; select contract work</p>
+  <h2 class="display"><a href="mailto:jordan@example.com">Let's Talk →<br>jordan@example.com</a></h2>
+  <div class="close-foot">
+    <span>Based in Bengaluru · working worldwide</span>
+    <div class="socials">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Résumé</a>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* ---------------- Loader ritual ---------------- */
+const bootLines = [
+  '> initializing workspace...',
+  '> resolving dependencies... <span class="ok">resolved</span>',
+  '> compiling ambition...',
+  '> ready.'
+];
+const linesEl = document.getElementById('loader-lines');
+bootLines.forEach(l=>{ const d=document.createElement('div'); d.innerHTML=l; linesEl.appendChild(d); });
+const lineEls = linesEl.querySelectorAll('div');
+
+let reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function runLoader(){
+  if(reduced){
+    document.getElementById('loader').style.display='none';
+    document.getElementById('loader-curtain').style.display='none';
+    return;
+  }
+  const tl = gsap.timeline({ delay:0.2 });
+  lineEls.forEach((el,i)=>{
+    tl.to(el,{opacity:1, duration:0.2}, i*0.28);
+  });
+  tl.call(()=>{ document.getElementById('loader').classList.add('loading'); }, null, '+=0.1');
+  tl.to({}, {duration:1.7}); // let bar fill
+  tl.to('#loader', {opacity:0, duration:0.5, onComplete:()=>{ document.getElementById('loader').style.display='none'; }});
+  tl.to('#loader-curtain', {yPercent:-100, duration:0.9, ease:'power4.inOut', onComplete:()=>{ document.getElementById('loader-curtain').style.display='none'; }}, '-=0.4');
+  tl.call(()=>{ revealHero(); }, null, '-=0.5');
+}
+window.addEventListener('load', runLoader);
+setTimeout(runLoader, 1800); // fallback in case load event is slow in this environment
+
+/* ---------------- Hero reveal + scroll reveals ---------------- */
+function revealHero(){
+  if(reduced){
+    gsap.set('#hero .hero-status-bar, #hero .hero-intro, #hero h1 span, #hero .hero-actions, #hero .hero-foot', {opacity:1, y:0});
+    return;
+  }
+  gsap.fromTo('#hero .hero-status-bar, #hero .hero-intro, #hero h1 span, #hero .hero-actions, #hero .hero-foot',
+    {opacity:0, y:22},
+    {opacity:1, y:0, duration:0.85, stagger:0.07, ease:'power3.out'}
+  );
+}
+
+gsap.registerPlugin(ScrollTrigger);
+document.querySelectorAll('#manifesto p, .case, .steps .step, #close .label, #close h2, .close-foot').forEach(el=>{
+  el.classList.add('reveal');
+  if(reduced){
+    gsap.set(el, {opacity:1, y:0});
+    return;
+  }
+  gsap.fromTo(el, {opacity:0, y:28}, {
+    opacity:1, y:0, duration:0.8, ease:'power2.out',
+    scrollTrigger:{ trigger:el, start:'top 85%' }
+  });
+});
+
+/* ---------------- Three.js scroll-linked wireframe ---------------- */
+(function(){
+  const canvas = document.getElementById('hero-canvas');
+  if(!window.THREE){ return; }
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100);
+  camera.position.z = 6;
+  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true, powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  const geo = new THREE.IcosahedronGeometry(2.1, 1);
+  const edges = new THREE.EdgesGeometry(geo);
+  const mat = new THREE.LineBasicMaterial({ color: 0x6C5CE7, transparent:true, opacity:0.52 });
+  const mesh = new THREE.LineSegments(edges, mat);
+  scene.add(mesh);
+
+  const geo2 = new THREE.IcosahedronGeometry(0.85, 0);
+  const edges2 = new THREE.EdgesGeometry(geo2);
+  const mat2 = new THREE.LineBasicMaterial({ color: 0xB8451F, transparent:true, opacity:0.36 });
+  const mesh2 = new THREE.LineSegments(edges2, mat2);
+  scene.add(mesh2);
+
+  let targetBaseX1 = 2.1, targetBaseY1 = -0.1, targetBaseZ1 = 0, targetBaseScale1 = 1, targetOpacity1 = 0.52;
+  let targetBaseX2 = -2.4, targetBaseY2 = 1.6, targetBaseZ2 = -1;
+
+  function updateBounds(){
+    const width = window.innerWidth;
+    camera.aspect = width / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, window.innerHeight);
+
+    if(width <= 480){
+      targetBaseX1 = 0.6; targetBaseY1 = 0.9; targetBaseZ1 = -1.6; targetBaseScale1 = 0.68; targetOpacity1 = 0.26;
+      targetBaseX2 = -1.2; targetBaseY2 = 2.2; targetBaseZ2 = -2.2;
+    } else if(width <= 768){
+      targetBaseX1 = 1.2; targetBaseY1 = 0.4; targetBaseZ1 = -0.8; targetBaseScale1 = 0.8; targetOpacity1 = 0.38;
+      targetBaseX2 = -1.8; targetBaseY2 = 1.9; targetBaseZ2 = -1.5;
+    } else if(width <= 1100){
+      targetBaseX1 = 1.7; targetBaseY1 = 0.0; targetBaseZ1 = -0.3; targetBaseScale1 = 0.9; targetOpacity1 = 0.46;
+      targetBaseX2 = -2.1; targetBaseY2 = 1.6; targetBaseZ2 = -1.2;
+    } else {
+      targetBaseX1 = 2.1; targetBaseY1 = -0.1; targetBaseZ1 = 0; targetBaseScale1 = 1; targetOpacity1 = 0.52;
+      targetBaseX2 = -2.4; targetBaseY2 = 1.6; targetBaseZ2 = -1;
+    }
+    mesh.scale.setScalar(targetBaseScale1);
+    mat.opacity = targetOpacity1;
+  }
+  updateBounds();
+  window.addEventListener('resize', updateBounds);
+
+  if(reduced){
+    mesh.position.set(targetBaseX1, targetBaseY1, targetBaseZ1);
+    mesh2.position.set(targetBaseX2, targetBaseY2, targetBaseZ2);
+    renderer.render(scene, camera);
+    return;
+  }
+
+  let targetMouseX = 0, targetMouseY = 0, currentMouseX = 0, currentMouseY = 0;
+  window.addEventListener('mousemove', e=>{
+    targetMouseX = (e.clientX/window.innerWidth)*2 - 1;
+    targetMouseY = -(e.clientY/window.innerHeight)*2 + 1;
+  });
+
+  let idleRotX = 0, idleRotY = 0, idleRot2X = 0, idleRot2Y = 0;
+
+  function animate(){
+    requestAnimationFrame(animate);
+    currentMouseX += (targetMouseX - currentMouseX) * 0.045;
+    currentMouseY += (targetMouseY - currentMouseY) * 0.045;
+
+    const dist = Math.sqrt(currentMouseX * currentMouseX + currentMouseY * currentMouseY);
+    const proximity = Math.max(0, 1 - dist * 0.65);
+    const scrollT = Math.min(window.scrollY / window.innerHeight, 1.4);
+
+    idleRotX += 0.0014;
+    idleRotY += 0.002;
+
+    mesh.rotation.x = idleRotX + currentMouseY * 0.28 + proximity * 0.08;
+    mesh.rotation.y = idleRotY + currentMouseX * 0.36 + scrollT * 0.025;
+    mesh.rotation.z = currentMouseX * 0.08;
+
+    mesh.position.x = targetBaseX1 + currentMouseX * 0.25;
+    mesh.position.y = targetBaseY1 - scrollT * 1.35 + currentMouseY * 0.18;
+    mesh.position.z = targetBaseZ1;
+
+    idleRot2X -= 0.001;
+    idleRot2Y += 0.0015;
+    mesh2.rotation.x = idleRot2X - currentMouseY * 0.15;
+    mesh2.rotation.y = idleRot2Y - currentMouseX * 0.2;
+    mesh2.position.x = targetBaseX2 - currentMouseX * 0.2;
+    mesh2.position.y = targetBaseY2 + scrollT * 1.6 - currentMouseY * 0.15;
+    mesh2.position.z = targetBaseZ2;
+
+    camera.position.x += (currentMouseX * 0.32 - camera.position.x) * 0.035;
+    camera.position.y += (currentMouseY * 0.24 - camera.position.y) * 0.035;
+    camera.lookAt(0,0,0);
+
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
+</script>
+
+</body>
+</html>
