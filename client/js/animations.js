@@ -24,14 +24,55 @@ export function initScrollReveals() {
   gsap.registerPlugin(ScrollTrigger);
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const targets = document.querySelectorAll(
-    '#manifesto p, .case, .steps .step, #close .label, #close h2, .contact-card, .close-foot'
-  );
 
   if (reduced) {
-    targets.forEach(el => gsap.set(el, { opacity: 1, y: 0 }));
+    const allTargets = document.querySelectorAll(
+      '.manifesto-lede, .manifesto-left, .capabilities-header, .capability-row, .case, .steps .step, #close .label, #close h2, .contact-card, .close-foot'
+    );
+    allTargets.forEach(el => gsap.set(el, { opacity: 1, y: 0 }));
     return;
   }
+
+  // 1. Philosophy & Capabilities Dedicated Scroll Transition
+  const manifesto = document.getElementById('manifesto');
+  if (manifesto) {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: manifesto,
+        start: 'top 82%',
+        once: true
+      }
+    });
+
+    tl.fromTo(
+      '#manifesto .manifesto-lede',
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' }
+    )
+    .fromTo(
+      '#manifesto .manifesto-left',
+      { opacity: 0, y: 26 },
+      { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' },
+      '-=0.35'
+    )
+    .fromTo(
+      '#manifesto .capabilities-header',
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+      '-=0.5'
+    )
+    .fromTo(
+      '#manifesto .capability-row',
+      { opacity: 0, y: 22 },
+      { opacity: 1, y: 0, duration: 0.55, stagger: 0.1, ease: 'power2.out' },
+      '-=0.35'
+    );
+  }
+
+  // 2. Other Standard Scroll Reveals
+  const targets = document.querySelectorAll(
+    '.case, .steps .step, #close .label, #close h2, .contact-card, .close-foot'
+  );
 
   targets.forEach(el => {
     el.classList.add('reveal');

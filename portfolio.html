@@ -212,14 +212,234 @@ section{ position:relative; }
   50%{ transform:translateY(4px); }
 }
 
-/* ---------- Manifesto (light) ---------- */
-#manifesto p{
-  font-size:clamp(22px,3.4vw,38px);
-  line-height:1.35;
-  max-width:20ch;
-  font-weight:500;
+/* ---------- Manifesto & Capabilities Section (Light, Editorial) ---------- */
+#manifesto {
+  background: var(--cream);
+  color: var(--ink);
+  border-top: 1px solid var(--hair-light);
+  border-bottom: 1px solid var(--hair-light);
+  position: relative;
 }
-#manifesto p .em{ color:var(--ember); }
+.manifesto-lede {
+  border-bottom: 1px solid var(--hair-light);
+  padding-bottom: clamp(24px, 3.5vh, 40px);
+  margin-bottom: clamp(40px, 6vh, 64px);
+}
+.manifesto-lede .lede-text {
+  font-size: clamp(15px, 1.35vw, 18px);
+  line-height: 1.65;
+  color: var(--muted-light);
+  max-width: 64ch;
+  font-weight: 400;
+}
+.manifesto-grid {
+  display: grid;
+  grid-template-columns: 1.12fr 1fr;
+  gap: clamp(48px, 6.5vw, 96px);
+  align-items: start;
+}
+.manifesto-left {
+  position: sticky;
+  top: 90px;
+}
+.section-tag {
+  display: block;
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  color: var(--muted-light);
+  text-transform: uppercase;
+  margin-bottom: clamp(14px, 2vh, 20px);
+}
+.manifesto-quote {
+  font-size: clamp(26px, 3.1vw, 42px);
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  max-width: 26ch;
+}
+.manifesto-quote .em {
+  color: var(--ember);
+  font-weight: 600;
+}
+.manifesto-right {
+  display: flex;
+  flex-direction: column;
+}
+.capabilities-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--hair-light);
+  padding-bottom: 18px;
+  gap: 20px;
+}
+.capabilities-title {
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.experience-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  text-align: right;
+}
+.stat-num {
+  font-size: clamp(28px, 3vw, 38px);
+  color: var(--ember);
+  line-height: 1;
+  font-weight: 900;
+  font-family: 'Big Shoulders Display', sans-serif;
+}
+.stat-desc {
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: var(--muted-light);
+  text-transform: uppercase;
+  max-width: 14ch;
+  line-height: 1.25;
+}
+.capability-list {
+  display: flex;
+  flex-direction: column;
+}
+.capability-row {
+  display: block;
+  padding: clamp(22px, 3vh, 30px) 0;
+  border-bottom: 1px solid var(--hair-light);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: default;
+}
+.capability-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 0%;
+  height: 1.5px;
+  background: var(--ember);
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.capability-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.capability-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.capability-num {
+  font-size: 13px;
+  color: var(--ember);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+.capability-name {
+  font-size: clamp(17px, 1.55vw, 21px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: color 0.2s ease, letter-spacing 0.2s ease;
+}
+.capability-arrow {
+  font-size: 15px;
+  color: var(--ember);
+  opacity: 0;
+  transform: translate(-6px, 6px);
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.capability-desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted-light);
+  padding-left: 32px;
+  margin-bottom: 10px;
+  max-width: 44ch;
+  transition: color 0.2s ease;
+}
+.capability-tech {
+  display: block;
+  font-size: 11.5px;
+  color: var(--muted-light);
+  opacity: 0.65;
+  padding-left: 32px;
+  letter-spacing: 0.04em;
+  transition: opacity 0.25s ease, color 0.25s ease;
+}
+.capability-row:hover {
+  transform: translateX(5px);
+}
+.capability-row:hover::before {
+  width: 100%;
+}
+.capability-row:hover .capability-name {
+  color: var(--ember);
+}
+.capability-row:hover .capability-desc {
+  color: var(--ink);
+}
+.capability-row:hover .capability-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.capability-row:hover .capability-tech {
+  opacity: 1;
+  color: var(--ink);
+}
+@media (max-width: 960px) {
+  .manifesto-grid {
+    grid-template-columns: 1fr;
+    gap: 52px;
+  }
+  .manifesto-left {
+    position: static;
+  }
+  .manifesto-quote {
+    max-width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  .manifesto-lede {
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+  }
+  .capabilities-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .experience-stat {
+    text-align: left;
+  }
+  .capability-desc,
+  .capability-tech {
+    padding-left: 0;
+  }
+  .capability-heading {
+    gap: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .capability-row,
+  .capability-row::before,
+  .capability-arrow {
+    transition: none !important;
+    transform: none !important;
+  }
+}
 
 /* ---------- Work (dark, modular) ---------- */
 #work-head{ padding:clamp(60px,10vw,110px) clamp(20px,6vw,56px) 0; }
@@ -358,8 +578,89 @@ section{ position:relative; }
   </div>
 </section>
 
+<!-- Philosophy & Capabilities Section -->
 <section id="manifesto" class="light pad">
-  <p>Good engineering is <span class="em">invisible</span> until it isn't. I try to make the boring parts — auth, sync, migrations — disappear, so the interesting parts get the attention.</p>
+  <!-- Context Lede Narrative -->
+  <div class="manifesto-lede">
+    <p class="lede-text">
+      I build products that hold up under real traffic — from the database up to the pixel. Ten years turning ambitious roadmaps into software that ships, and occasionally into technical debt I fully intend to pay off.
+    </p>
+  </div>
+
+  <!-- Editorial Asymmetrical Grid -->
+  <div class="manifesto-grid">
+    <!-- Left Column: Core Philosophy Statement -->
+    <div class="manifesto-left">
+      <span class="section-tag mono">[ 01 / PHILOSOPHY ]</span>
+      <h2 class="manifesto-quote">
+        Good engineering is <span class="em">invisible</span> until it isn't. I try to make the boring parts — auth, sync, migrations — disappear, so the interesting parts get the attention.
+      </h2>
+    </div>
+
+    <!-- Right Column: Capabilities System -->
+    <div class="manifesto-right">
+      <div class="capabilities-header">
+        <div>
+          <span class="section-tag mono">[ 02 / CAPABILITIES ]</span>
+          <h3 class="capabilities-title mono">WHAT I BUILD</h3>
+        </div>
+        <div class="experience-stat">
+          <span class="stat-num display">10+</span>
+          <span class="stat-desc mono">YEARS BUILDING SOFTWARE</span>
+        </div>
+      </div>
+
+      <div class="capability-list">
+        <div class="capability-row" tabindex="0">
+          <div class="capability-top">
+            <div class="capability-heading">
+              <span class="capability-num mono">01</span>
+              <h4 class="capability-name">PRODUCT SYSTEMS</h4>
+            </div>
+            <span class="capability-arrow mono" aria-hidden="true">↗</span>
+          </div>
+          <p class="capability-desc">Interfaces and products designed to scale beyond the prototype.</p>
+          <span class="capability-tech mono">React · TypeScript · Design Systems · Modern Web</span>
+        </div>
+
+        <div class="capability-row" tabindex="0">
+          <div class="capability-top">
+            <div class="capability-heading">
+              <span class="capability-num mono">02</span>
+              <h4 class="capability-name">BACKEND &amp; INFRA</h4>
+            </div>
+            <span class="capability-arrow mono" aria-hidden="true">↗</span>
+          </div>
+          <p class="capability-desc">APIs, databases, authentication, synchronization and reliable infrastructure.</p>
+          <span class="capability-tech mono">Node.js · PostgreSQL · SQLite · Redis · Realtime Sync</span>
+        </div>
+
+        <div class="capability-row" tabindex="0">
+          <div class="capability-top">
+            <div class="capability-heading">
+              <span class="capability-num mono">03</span>
+              <h4 class="capability-name">INTERACTION</h4>
+            </div>
+            <span class="capability-arrow mono" aria-hidden="true">↗</span>
+          </div>
+          <p class="capability-desc">Thoughtful UX, motion and realtime interfaces that make complex systems feel simple.</p>
+          <span class="capability-tech mono">WebGL · Three.js · GSAP · WebSockets · Micro-interactions</span>
+        </div>
+
+        <div class="capability-row" tabindex="0">
+          <div class="capability-top">
+            <div class="capability-heading">
+              <span class="capability-num mono">04</span>
+              <h4 class="capability-name">SHIPPED SOFTWARE</h4>
+            </div>
+            <span class="capability-arrow mono" aria-hidden="true">↗</span>
+          </div>
+          <p class="capability-desc">Turning ideas into production-ready software from architecture to deployment.</p>
+          <span class="capability-tech mono">Architecture · Docker · CI/CD · Cloud · Zero-Downtime</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="dark">
@@ -493,17 +794,34 @@ function revealHero(){
 }
 
 gsap.registerPlugin(ScrollTrigger);
-document.querySelectorAll('#manifesto p, .case, .steps .step, #close .label, #close h2, .close-foot').forEach(el=>{
-  el.classList.add('reveal');
-  if(reduced){
-    gsap.set(el, {opacity:1, y:0});
-    return;
+
+if(reduced){
+  const allTargets = document.querySelectorAll('.manifesto-lede, .manifesto-left, .capabilities-header, .capability-row, .case, .steps .step, #close .label, #close h2, .close-foot');
+  allTargets.forEach(el=>gsap.set(el, {opacity:1, y:0}));
+} else {
+  const manifesto = document.getElementById('manifesto');
+  if(manifesto){
+    const tl = gsap.timeline({
+      scrollTrigger:{
+        trigger:manifesto,
+        start:'top 82%',
+        once:true
+      }
+    });
+    tl.fromTo('#manifesto .manifesto-lede', {opacity:0, y:20}, {opacity:1, y:0, duration:0.65, ease:'power2.out'})
+      .fromTo('#manifesto .manifesto-left', {opacity:0, y:26}, {opacity:1, y:0, duration:0.75, ease:'power2.out'}, '-=0.35')
+      .fromTo('#manifesto .capabilities-header', {opacity:0, y:20}, {opacity:1, y:0, duration:0.6, ease:'power2.out'}, '-=0.5')
+      .fromTo('#manifesto .capability-row', {opacity:0, y:22}, {opacity:1, y:0, duration:0.55, stagger:0.1, ease:'power2.out'}, '-=0.35');
   }
-  gsap.fromTo(el, {opacity:0, y:28}, {
-    opacity:1, y:0, duration:0.8, ease:'power2.out',
-    scrollTrigger:{ trigger:el, start:'top 85%' }
+
+  document.querySelectorAll('.case, .steps .step, #close .label, #close h2, .close-foot').forEach(el=>{
+    el.classList.add('reveal');
+    gsap.fromTo(el, {opacity:0, y:28}, {
+      opacity:1, y:0, duration:0.8, ease:'power2.out',
+      scrollTrigger:{ trigger:el, start:'top 85%' }
+    });
   });
-});
+}
 
 /* ---------------- Three.js scroll-linked wireframe ---------------- */
 (function(){

@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/components/loader.css">
   <link rel="stylesheet" href="css/components/nav.css">
   <link rel="stylesheet" href="css/components/hero.css">
+  <link rel="stylesheet" href="css/components/manifesto.css">
   <link rel="stylesheet" href="css/components/work.css">
   <link rel="stylesheet" href="css/components/process.css">
   <link rel="stylesheet" href="css/components/contact.css">
@@ -87,9 +88,89 @@
     </div>
   </section>
 
-  <!-- Philosophy Manifesto -->
+  <!-- Philosophy & Capabilities Section -->
   <section id="manifesto" class="light pad">
-    <p>Good engineering is <span class="em">invisible</span> until it isn't. I try to make the boring parts — auth, sync, migrations — disappear, so the interesting parts get the attention.</p>
+    <!-- Context Lede Narrative -->
+    <div class="manifesto-lede">
+      <p class="lede-text">
+        I build products that hold up under real traffic — from the database up to the pixel. Ten years turning ambitious roadmaps into software that ships, and occasionally into technical debt I fully intend to pay off.
+      </p>
+    </div>
+
+    <!-- Editorial Asymmetrical Grid -->
+    <div class="manifesto-grid">
+      <!-- Left Column: Core Philosophy Statement -->
+      <div class="manifesto-left">
+        <span class="section-tag mono">[ 01 / PHILOSOPHY ]</span>
+        <h2 class="manifesto-quote">
+          Good engineering is <span class="em">invisible</span> until it isn't. I try to make the boring parts — auth, sync, migrations — disappear, so the interesting parts get the attention.
+        </h2>
+      </div>
+
+      <!-- Right Column: Capabilities System -->
+      <div class="manifesto-right">
+        <div class="capabilities-header">
+          <div>
+            <span class="section-tag mono">[ 02 / CAPABILITIES ]</span>
+            <h3 class="capabilities-title mono">WHAT I BUILD</h3>
+          </div>
+          <div class="experience-stat">
+            <span class="stat-num display">10+</span>
+            <span class="stat-desc mono">YEARS BUILDING SOFTWARE</span>
+          </div>
+        </div>
+
+        <div class="capability-list">
+          <div class="capability-row" tabindex="0">
+            <div class="capability-top">
+              <div class="capability-heading">
+                <span class="capability-num mono">01</span>
+                <h4 class="capability-name">PRODUCT SYSTEMS</h4>
+              </div>
+              <span class="capability-arrow mono" aria-hidden="true">↗</span>
+            </div>
+            <p class="capability-desc">Interfaces and products designed to scale beyond the prototype.</p>
+            <span class="capability-tech mono">React · TypeScript · Design Systems · Modern Web</span>
+          </div>
+
+          <div class="capability-row" tabindex="0">
+            <div class="capability-top">
+              <div class="capability-heading">
+                <span class="capability-num mono">02</span>
+                <h4 class="capability-name">BACKEND &amp; INFRA</h4>
+              </div>
+              <span class="capability-arrow mono" aria-hidden="true">↗</span>
+            </div>
+            <p class="capability-desc">APIs, databases, authentication, synchronization and reliable infrastructure.</p>
+            <span class="capability-tech mono">Node.js · PostgreSQL · SQLite · Redis · Realtime Sync</span>
+          </div>
+
+          <div class="capability-row" tabindex="0">
+            <div class="capability-top">
+              <div class="capability-heading">
+                <span class="capability-num mono">03</span>
+                <h4 class="capability-name">INTERACTION</h4>
+              </div>
+              <span class="capability-arrow mono" aria-hidden="true">↗</span>
+            </div>
+            <p class="capability-desc">Thoughtful UX, motion and realtime interfaces that make complex systems feel simple.</p>
+            <span class="capability-tech mono">WebGL · Three.js · GSAP · WebSockets · Micro-interactions</span>
+          </div>
+
+          <div class="capability-row" tabindex="0">
+            <div class="capability-top">
+              <div class="capability-heading">
+                <span class="capability-num mono">04</span>
+                <h4 class="capability-name">SHIPPED SOFTWARE</h4>
+              </div>
+              <span class="capability-arrow mono" aria-hidden="true">↗</span>
+            </div>
+            <p class="capability-desc">Turning ideas into production-ready software from architecture to deployment.</p>
+            <span class="capability-tech mono">Architecture · Docker · CI/CD · Cloud · Zero-Downtime</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Selected Work (Dynamically Loaded via REST API) -->
