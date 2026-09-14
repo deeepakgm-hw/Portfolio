@@ -152,13 +152,6 @@
   transition: color 0.2s ease, letter-spacing 0.2s ease;
 }
 
-.capability-arrow {
-  font-size: 15px;
-  color: var(--ember);
-  opacity: 0;
-  transform: translate(-6px, 6px);
-  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
 
 .capability-desc {
   font-size: 14px;
@@ -197,10 +190,6 @@
   color: var(--ink);
 }
 
-.capability-row:hover .capability-arrow {
-  opacity: 1;
-  transform: translate(0, 0);
-}
 
 .capability-row:hover .capability-tech {
   opacity: 1;
@@ -245,8 +234,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .capability-row,
-  .capability-row::before,
-  .capability-arrow {
+  .capability-row::before {
     transition: none !important;
     transform: none !important;
   }

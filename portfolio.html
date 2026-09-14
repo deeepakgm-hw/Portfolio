@@ -348,13 +348,6 @@ section{ position:relative; }
   color: var(--ink);
   transition: color 0.2s ease, letter-spacing 0.2s ease;
 }
-.capability-arrow {
-  font-size: 15px;
-  color: var(--ember);
-  opacity: 0;
-  transform: translate(-6px, 6px);
-  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
 .capability-desc {
   font-size: 14px;
   line-height: 1.55;
@@ -384,10 +377,6 @@ section{ position:relative; }
 }
 .capability-row:hover .capability-desc {
   color: var(--ink);
-}
-.capability-row:hover .capability-arrow {
-  opacity: 1;
-  transform: translate(0, 0);
 }
 .capability-row:hover .capability-tech {
   opacity: 1;
@@ -428,8 +417,7 @@ section{ position:relative; }
 }
 @media (prefers-reduced-motion: reduce) {
   .capability-row,
-  .capability-row::before,
-  .capability-arrow {
+  .capability-row::before {
     transition: none !important;
     transform: none !important;
   }
@@ -598,49 +586,45 @@ section{ position:relative; }
       </div>
 
       <div class="capability-list">
-        <div class="capability-row" tabindex="0">
+        <div class="capability-row">
           <div class="capability-top">
             <div class="capability-heading">
               <span class="capability-num mono">01</span>
               <h4 class="capability-name">PRODUCT SYSTEMS</h4>
             </div>
-            <span class="capability-arrow mono" aria-hidden="true">↗</span>
           </div>
           <p class="capability-desc">Interfaces and products designed to scale beyond the prototype.</p>
           <span class="capability-tech mono">React · TypeScript · Design Systems · Modern Web</span>
         </div>
 
-        <div class="capability-row" tabindex="0">
+        <div class="capability-row">
           <div class="capability-top">
             <div class="capability-heading">
               <span class="capability-num mono">02</span>
               <h4 class="capability-name">BACKEND &amp; INFRA</h4>
             </div>
-            <span class="capability-arrow mono" aria-hidden="true">↗</span>
           </div>
           <p class="capability-desc">APIs, databases, authentication, synchronization and reliable infrastructure.</p>
           <span class="capability-tech mono">Node.js · PostgreSQL · SQLite · Redis · Realtime Sync</span>
         </div>
 
-        <div class="capability-row" tabindex="0">
+        <div class="capability-row">
           <div class="capability-top">
             <div class="capability-heading">
               <span class="capability-num mono">03</span>
               <h4 class="capability-name">INTERACTION</h4>
             </div>
-            <span class="capability-arrow mono" aria-hidden="true">↗</span>
           </div>
           <p class="capability-desc">Thoughtful UX, motion and realtime interfaces that make complex systems feel simple.</p>
           <span class="capability-tech mono">WebGL · Three.js · GSAP · WebSockets · Micro-interactions</span>
         </div>
 
-        <div class="capability-row" tabindex="0">
+        <div class="capability-row">
           <div class="capability-top">
             <div class="capability-heading">
               <span class="capability-num mono">04</span>
               <h4 class="capability-name">SHIPPED SOFTWARE</h4>
             </div>
-            <span class="capability-arrow mono" aria-hidden="true">↗</span>
           </div>
           <p class="capability-desc">Turning ideas into production-ready software from architecture to deployment.</p>
           <span class="capability-tech mono">Architecture · Docker · CI/CD · Cloud · Zero-Downtime</span>
@@ -721,13 +705,13 @@ section{ position:relative; }
 
 <section id="close" class="dark pad">
   <p class="label mono">Currently open to new roles &amp; select contract work</p>
-  <h2 class="display"><a href="mailto:jordan@example.com">Let's Talk →<br>jordan@example.com</a></h2>
+  <h2 class="display"><a href="mailto:deeeepakgm@gmail.com">Let's Talk →<br>deeeepakgm@gmail.com</a></h2>
   <div class="close-foot">
     <span>Based in Bengaluru · working worldwide</span>
     <div class="socials">
-      <a href="#">GitHub</a>
-      <a href="#">LinkedIn</a>
-      <a href="#">Résumé</a>
+      <a href="https://github.com/deeepakgm-hw" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="http://linkedin.com/in/deepak-gm-b85a14348/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://www.instagram.com/deepakgm.official/" target="_blank" rel="noopener noreferrer">Instagram</a>
     </div>
   </div>
 </section>

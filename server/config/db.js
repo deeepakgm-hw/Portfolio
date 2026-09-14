@@ -124,17 +124,17 @@ function initializeDatabase() {
           `INSERT INTO profile (name, title, kicker, bio, manifesto, location, email, socials) 
            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
           [
-            'Jordan Reyes',
+            'Deepak GM',
             'Software Engineer',
             'Software Engineer — systems, interfaces, the occasional 3AM incident',
             'I build products that hold up under real traffic — from the database up to the pixel. Ten years turning ambitious roadmaps into software that ships, and occasionally into technical debt I fully intend to pay off.',
             'Good engineering is invisible until it isn\'t. I try to make the boring parts — auth, sync, migrations — disappear, so the interesting parts get the attention.',
             'Bengaluru · working worldwide',
-            'jordan@example.com',
+            'deeeepakgm@gmail.com',
             JSON.stringify([
-              { name: 'GitHub', url: 'https://github.com' },
-              { name: 'LinkedIn', url: 'https://linkedin.com' },
-              { name: 'Résumé', url: '#' }
+              { name: 'GitHub', url: 'https://github.com/deeepakgm-hw' },
+              { name: 'LinkedIn', url: 'http://linkedin.com/in/deepak-gm-b85a14348/' },
+              { name: 'Instagram', url: 'https://www.instagram.com/deepakgm.official/' }
             ])
           ]
         );
