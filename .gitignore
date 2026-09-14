@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# SQLite local databases
+data/portfolio.sqlite
+data/portfolio.sqlite-journal
+
+# OS files
+.DS_Store
+Thumbs.db

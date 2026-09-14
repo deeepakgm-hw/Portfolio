@@ -8,8 +8,11 @@
     "dev": "node --watch server/server.js",
     "test": "node server/test.js"
   },
+  "engines": {
+    "node": ">=20.0.0 <=22.x"
+  },
   "keywords": ["portfolio", "full-stack", "express", "sqlite", "threejs", "gsap"],
-  "author": "Jordan Reyes",
+  "author": "Deepak GM",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
