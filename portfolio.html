@@ -220,18 +220,6 @@ section{ position:relative; }
   border-bottom: 1px solid var(--hair-light);
   position: relative;
 }
-.manifesto-lede {
-  border-bottom: 1px solid var(--hair-light);
-  padding-bottom: clamp(24px, 3.5vh, 40px);
-  margin-bottom: clamp(40px, 6vh, 64px);
-}
-.manifesto-lede .lede-text {
-  font-size: clamp(15px, 1.35vw, 18px);
-  line-height: 1.65;
-  color: var(--muted-light);
-  max-width: 64ch;
-  font-weight: 400;
-}
 .manifesto-grid {
   display: grid;
   grid-template-columns: 1.12fr 1fr;
@@ -580,13 +568,6 @@ section{ position:relative; }
 
 <!-- Philosophy & Capabilities Section -->
 <section id="manifesto" class="light pad">
-  <!-- Context Lede Narrative -->
-  <div class="manifesto-lede">
-    <p class="lede-text">
-      I build products that hold up under real traffic — from the database up to the pixel. Ten years turning ambitious roadmaps into software that ships, and occasionally into technical debt I fully intend to pay off.
-    </p>
-  </div>
-
   <!-- Editorial Asymmetrical Grid -->
   <div class="manifesto-grid">
     <!-- Left Column: Core Philosophy Statement -->
@@ -796,7 +777,7 @@ function revealHero(){
 gsap.registerPlugin(ScrollTrigger);
 
 if(reduced){
-  const allTargets = document.querySelectorAll('.manifesto-lede, .manifesto-left, .capabilities-header, .capability-row, .case, .steps .step, #close .label, #close h2, .close-foot');
+  const allTargets = document.querySelectorAll('.manifesto-left, .capabilities-header, .capability-row, .case, .steps .step, #close .label, #close h2, .close-foot');
   allTargets.forEach(el=>gsap.set(el, {opacity:1, y:0}));
 } else {
   const manifesto = document.getElementById('manifesto');
@@ -808,9 +789,8 @@ if(reduced){
         once:true
       }
     });
-    tl.fromTo('#manifesto .manifesto-lede', {opacity:0, y:20}, {opacity:1, y:0, duration:0.65, ease:'power2.out'})
-      .fromTo('#manifesto .manifesto-left', {opacity:0, y:26}, {opacity:1, y:0, duration:0.75, ease:'power2.out'}, '-=0.35')
-      .fromTo('#manifesto .capabilities-header', {opacity:0, y:20}, {opacity:1, y:0, duration:0.6, ease:'power2.out'}, '-=0.5')
+    tl.fromTo('#manifesto .manifesto-left', {opacity:0, y:26}, {opacity:1, y:0, duration:0.75, ease:'power2.out'})
+      .fromTo('#manifesto .capabilities-header', {opacity:0, y:20}, {opacity:1, y:0, duration:0.6, ease:'power2.out'}, '-=0.4')
       .fromTo('#manifesto .capability-row', {opacity:0, y:22}, {opacity:1, y:0, duration:0.55, stagger:0.1, ease:'power2.out'}, '-=0.35');
   }
 

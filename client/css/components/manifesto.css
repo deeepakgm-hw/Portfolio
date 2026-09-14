@@ -7,21 +7,6 @@
   position: relative;
 }
 
-/* Lede Context Bar */
-.manifesto-lede {
-  border-bottom: 1px solid var(--hair-light);
-  padding-bottom: clamp(24px, 3.5vh, 40px);
-  margin-bottom: clamp(40px, 6vh, 64px);
-}
-
-.manifesto-lede .lede-text {
-  font-size: clamp(15px, 1.35vw, 18px);
-  line-height: 1.65;
-  color: var(--muted-light);
-  max-width: 64ch;
-  font-weight: 400;
-}
-
 /* Two-column Editorial Grid */
 .manifesto-grid {
   display: grid;

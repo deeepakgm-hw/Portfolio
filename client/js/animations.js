@@ -27,7 +27,7 @@ export function initScrollReveals() {
 
   if (reduced) {
     const allTargets = document.querySelectorAll(
-      '.manifesto-lede, .manifesto-left, .capabilities-header, .capability-row, .case, .steps .step, #close .label, #close h2, .contact-card, .close-foot'
+      '.manifesto-left, .capabilities-header, .capability-row, .case, .steps .step, #close .label, #close h2, .contact-card, .close-foot'
     );
     allTargets.forEach(el => gsap.set(el, { opacity: 1, y: 0 }));
     return;
@@ -45,21 +45,15 @@ export function initScrollReveals() {
     });
 
     tl.fromTo(
-      '#manifesto .manifesto-lede',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' }
-    )
-    .fromTo(
       '#manifesto .manifesto-left',
       { opacity: 0, y: 26 },
-      { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' },
-      '-=0.35'
+      { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' }
     )
     .fromTo(
       '#manifesto .capabilities-header',
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
-      '-=0.5'
+      '-=0.4'
     )
     .fromTo(
       '#manifesto .capability-row',
