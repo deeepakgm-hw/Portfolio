@@ -62,32 +62,81 @@ async function loadProjects() {
 function setupContactForm() {
   const form = document.getElementById('contact-form');
   const statusEl = document.getElementById('form-status');
+  const successEl = document.getElementById('contact-success');
+  const userEmailEl = document.getElementById('success-user-email');
+  const resetBtn = document.getElementById('btn-reset-form');
   if (!form) return;
+
+  // Clear errors dynamically on typing
+  form.querySelectorAll('input, textarea').forEach(input => {
+    input.addEventListener('input', () => {
+      input.closest('.form-group')?.classList.remove('has-error');
+      if (statusEl && statusEl.classList.contains('error')) {
+        showStatus('', 'hide');
+      }
+    });
+  });
+
+  // "Send another message" button handler
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      form.reset();
+      showStatus('', 'hide');
+      if (successEl) successEl.style.display = 'none';
+      form.style.display = 'block';
+    });
+  }
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
 
     const submitBtn = form.querySelector('button[type="submit"]');
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const message = form.message.value.trim();
+    const nameInput = form.name;
+    const emailInput = form.email;
+    const messageInput = form.message;
 
-    if (!name || !email || !message) {
-      showStatus('Please complete all required fields.', 'error');
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
+
+    let hasError = false;
+    if (!name) {
+      nameInput.closest('.form-group')?.classList.add('has-error');
+      hasError = true;
+    }
+    if (!email || !email.includes('@')) {
+      emailInput.closest('.form-group')?.classList.add('has-error');
+      hasError = true;
+    }
+    if (!message) {
+      messageInput.closest('.form-group')?.classList.add('has-error');
+      hasError = true;
+    }
+
+    if (hasError) {
+      showStatus('Please fill in your name, a valid email address, and a message.', 'error');
+      showToast('Please complete all required fields.', 'error');
       return;
     }
 
     try {
       submitBtn.disabled = true;
-      submitBtn.innerText = 'Sending...';
+      submitBtn.innerText = 'Sending message...';
       showStatus('', 'hide');
 
       await api.submitContact({ name, email, message });
 
-      showStatus('✓ Message received. Thanks for reaching out!', 'success');
-      form.reset();
+      // Success State: show dedicated confirmation view and toast
+      if (userEmailEl) userEmailEl.textContent = email;
+      form.style.display = 'none';
+      if (successEl) successEl.style.display = 'block';
+
+      showToast('✓ Message sent! I\'ll get back to you soon.', 'success');
     } catch (err) {
-      showStatus(`Error: ${err.message}`, 'error');
+      // Error State: clear user-facing error message with recovery option
+      const errorMsg = err.message || 'Server connection failed';
+      showStatus(`Unable to deliver message (${errorMsg}). Please retry or email directly at deeeepakgm@gmail.com.`, 'error');
+      showToast('Failed to send message. Please retry or email directly.', 'error');
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerText = 'Send Message →';
@@ -99,11 +148,41 @@ function setupContactForm() {
     statusEl.className = 'form-status';
     if (type === 'hide') {
       statusEl.style.display = 'none';
+      statusEl.innerText = '';
       return;
     }
     statusEl.innerText = text;
     statusEl.classList.add(type);
     statusEl.style.display = 'block';
+  }
+}
+
+/**
+ * Global toast notification trigger
+ */
+function showToast(message, type = 'success', duration = 5000) {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `
+    <span>${escapeHtml(message)}</span>
+    <button type="button" class="toast-close" aria-label="Dismiss notification">&times;</button>
+  `;
+
+  const closeBtn = toast.querySelector('.toast-close');
+  const dismiss = () => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(12px) scale(0.95)';
+    setTimeout(() => toast.remove(), 250);
+  };
+
+  closeBtn.addEventListener('click', dismiss);
+  container.appendChild(toast);
+
+  if (duration > 0) {
+    setTimeout(dismiss, duration);
   }
 }
 
