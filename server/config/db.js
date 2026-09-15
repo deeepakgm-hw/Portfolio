@@ -129,7 +129,7 @@ function initializeDatabase() {
             'Software Engineer — systems, interfaces, the occasional 3AM incident',
             'I build products that hold up under real traffic — from the database up to the pixel. Ten years turning ambitious roadmaps into software that ships, and occasionally into technical debt I fully intend to pay off.',
             'Good engineering is invisible until it isn\'t. I try to make the boring parts — auth, sync, migrations — disappear, so the interesting parts get the attention.',
-            'Bengaluru · working worldwide',
+            'Bengaluru, India · working worldwide',
             'deeeepakgm@gmail.com',
             JSON.stringify([
               { name: 'GitHub', url: 'https://github.com/deeepakgm-hw' },
