@@ -26,9 +26,46 @@ a {
   text-decoration: none;
 }
 
+/* Skip to content link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: 20px;
+  z-index: 10000;
+  background: var(--violet);
+  color: #fff;
+  padding: 12px 20px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: top 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 20px;
+  outline: 2px solid var(--cream);
+  outline-offset: 3px;
+}
+
+/* Global High-Contrast Accessible Focus Indicators */
 :focus-visible {
   outline: 2px solid var(--violet);
   outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.25);
+}
+
+/* Light Background Sections Focus Indicator */
+.light :focus-visible,
+#manifesto :focus-visible,
+#process :focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(184, 69, 31, 0.25);
 }
 
 .display {

@@ -39,10 +39,14 @@ async function loadProjects() {
       .map(tag => `<span>${escapeHtml(tag)}</span>`)
       .join('');
 
+    const mediaHtml = (proj.image || proj.image_url)
+      ? `<img src="${escapeHtml(proj.image || proj.image_url)}" alt="Visual overview and system design for ${escapeHtml(proj.title)}" class="case-img" />`
+      : `<span class="glyph" aria-hidden="true">${glyphNum}</span>`;
+
     const article = document.createElement('article');
     article.className = 'case';
     article.innerHTML = `
-      <div class="case-media"><span class="glyph">${glyphNum}</span></div>
+      <div class="case-media">${mediaHtml}</div>
       <div class="case-body">
         <p class="tag mono">${escapeHtml(proj.year || '')} — ${escapeHtml(proj.category || '')}</p>
         <h3 class="display">${escapeHtml(proj.title)}</h3>

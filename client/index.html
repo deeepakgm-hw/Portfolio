@@ -44,16 +44,18 @@
   <link rel="stylesheet" href="css/components/contact.css">
 </head>
 <body>
+  <!-- Keyboard Navigation Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- Terminal Boot Loader -->
-  <div id="loader" class="loading">
+  <div id="loader" class="loading" aria-hidden="true">
     <div class="lines mono" id="loader-lines"></div>
     <div class="bar"></div>
   </div>
-  <div id="loader-curtain"></div>
+  <div id="loader-curtain" aria-hidden="true"></div>
 
   <!-- Global Navigation -->
-  <nav>
+  <nav aria-label="Main Navigation">
     <a class="mark" href="#hero">Deepak GM</a>
     <div class="links">
       <a href="#work-head">Work</a>
@@ -62,14 +64,16 @@
     </div>
   </nav>
 
-  <!-- Hero Section with 3D WebGL Background -->
-  <section id="hero" class="dark">
+  <!-- Main Content Landmark -->
+  <main id="main-content">
+    <!-- Hero Section with 3D WebGL Background -->
+    <section id="hero" class="dark">
     <canvas id="hero-canvas"></canvas>
     <div class="hero-inner">
       <!-- Availability / Location Metadata Micro-label -->
       <div class="hero-status-bar mono">
         <div class="status-item">
-          <span class="status-dot"></span>
+          <span class="status-dot" aria-hidden="true"></span>
           <span>AVAILABLE FOR SELECT PROJECTS</span>
         </div>
         <div class="status-item status-loc">
@@ -106,7 +110,7 @@
       <!-- Hero Foot & Scroll Indicator -->
       <div class="hero-foot">
         <p>I build products that hold up under real traffic — from the database up to the pixel. Ten years turning ambitious roadmaps into software that ships, and occasionally into technical debt I fully intend to pay off.</p>
-        <a href="#manifesto" class="scroll-cue mono" aria-label="Scroll to explore">
+        <a href="#manifesto" class="scroll-cue mono" aria-label="Scroll to explore philosophy and capabilities">
           <span class="cue-label">SCROLL TO EXPLORE</span>
           <span class="cue-line" aria-hidden="true"></span>
           <span class="cue-arrow" aria-hidden="true">↓</span>
@@ -198,7 +202,7 @@
     <div id="projects-container">
       <!-- Fallback / Initial Server Rendered Content -->
       <article class="case">
-        <div class="case-media"><span class="glyph">01</span></div>
+        <div class="case-media"><span class="glyph" aria-hidden="true">01</span></div>
         <div class="case-body">
           <p class="tag mono">2025 — Realtime infrastructure</p>
           <h3 class="display">Nimbus Sync Engine</h3>
@@ -209,7 +213,7 @@
         </div>
       </article>
       <article class="case">
-        <div class="case-media"><span class="glyph">02</span></div>
+        <div class="case-media"><span class="glyph" aria-hidden="true">02</span></div>
         <div class="case-body">
           <p class="tag mono">2024 — Platform migration</p>
           <h3 class="display">Atlas Analytics</h3>
@@ -220,7 +224,7 @@
         </div>
       </article>
       <article class="case">
-        <div class="case-media"><span class="glyph">03</span></div>
+        <div class="case-media"><span class="glyph" aria-hidden="true">03</span></div>
         <div class="case-body">
           <p class="tag mono">2023 — Design systems</p>
           <h3 class="display">Drift Components</h3>
@@ -328,12 +332,13 @@
     <div class="close-foot">
       <span>Based in Bengaluru, India · working worldwide</span>
       <div class="socials">
-        <a href="https://github.com/deeepakgm-hw" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="http://linkedin.com/in/deepak-gm-b85a14348/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://www.instagram.com/deepakgm.official/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://github.com/deeepakgm-hw" target="_blank" rel="noopener noreferrer" aria-label="Deepak GM on GitHub (opens in a new tab)">GitHub</a>
+        <a href="http://linkedin.com/in/deepak-gm-b85a14348/" target="_blank" rel="noopener noreferrer" aria-label="Deepak GM on LinkedIn (opens in a new tab)">LinkedIn</a>
+        <a href="https://www.instagram.com/deepakgm.official/" target="_blank" rel="noopener noreferrer" aria-label="Deepak GM on Instagram (opens in a new tab)">Instagram</a>
       </div>
     </div>
   </section>
+  </main>
 
   <!-- Global Notification Toast Container -->
   <div id="toast-container" class="toast-container" aria-live="assertive"></div>

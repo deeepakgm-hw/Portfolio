@@ -79,14 +79,21 @@
   font-size: 15px;
   padding: 12px 14px;
   border-radius: 2px;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, outline 0.2s;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   border-color: var(--violet);
-  box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+  box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.25);
+}
+
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 1px;
+  border-color: var(--violet);
+  box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.35);
 }
 
 .form-group textarea {
@@ -115,6 +122,12 @@
 .btn-submit:hover:not(:disabled) {
   background: #5b4cdb;
   transform: translateY(-1px);
+}
+
+.btn-submit:focus-visible {
+  outline: 2px solid var(--cream);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.45);
 }
 
 .btn-submit:disabled {
@@ -180,6 +193,14 @@
   color: var(--cream);
   border-color: var(--cream);
   background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.35);
+  color: var(--cream);
+  border-color: var(--cream);
 }
 
 /* Form Status (Inline Alerts) */
@@ -269,6 +290,13 @@
   opacity: 1;
 }
 
+.toast-close:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 2px;
+  opacity: 1;
+}
+
 @keyframes slideInToast {
   from {
     opacity: 0;
@@ -291,6 +319,13 @@
   40%, 80% { transform: translateX(6px); }
 }
 
+#close h2 a:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 6px;
+  border-radius: 2px;
+  color: var(--violet);
+}
+
 .close-foot {
   display: flex;
   justify-content: space-between;
@@ -307,6 +342,13 @@
 }
 
 .close-foot .socials a:hover {
+  color: var(--cream);
+}
+
+.close-foot .socials a:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 4px;
+  border-radius: 2px;
   color: var(--cream);
 }
 

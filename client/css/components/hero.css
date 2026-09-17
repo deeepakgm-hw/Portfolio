@@ -263,6 +263,13 @@
   color: var(--violet);
 }
 
+.hero-cta:focus-visible,
+.scroll-cue:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
 @keyframes scrollBounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(4px); }

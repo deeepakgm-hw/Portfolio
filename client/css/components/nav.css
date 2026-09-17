@@ -41,6 +41,13 @@ nav .links a:hover {
   opacity: 1;
 }
 
+nav a:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 4px;
+  border-radius: 2px;
+  opacity: 1;
+}
+
 @media (max-width: 600px) {
   nav {
     padding: 18px clamp(16px, 4vw, 24px);
