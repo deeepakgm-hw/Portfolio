@@ -11,3 +11,6 @@ data/portfolio.sqlite-journal
 # OS files
 .DS_Store
 Thumbs.db
+
+# Audit screenshots
+audit-screenshots/

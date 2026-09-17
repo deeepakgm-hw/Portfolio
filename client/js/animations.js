@@ -24,12 +24,16 @@ export function initScrollReveals() {
   gsap.registerPlugin(ScrollTrigger);
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.innerWidth <= 768;
 
-  if (reduced) {
+  if (reduced || isMobile) {
     const allTargets = document.querySelectorAll(
       '.manifesto-left, .capabilities-header, .capability-row, .case, .steps .step, #close .label, #close h2, .contact-card, .close-foot'
     );
-    allTargets.forEach(el => gsap.set(el, { opacity: 1, y: 0 }));
+    allTargets.forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
     return;
   }
 
@@ -86,4 +90,6 @@ export function initScrollReveals() {
       }
     );
   });
+
+  ScrollTrigger.refresh();
 }

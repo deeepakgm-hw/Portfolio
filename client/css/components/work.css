@@ -67,24 +67,63 @@
 
 .case-body .stack {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .case-body .stack span {
-  font-size: 12.5px;
+  font-size: 12px;
   font-family: 'IBM Plex Mono', monospace;
   color: var(--cream);
   border: 1px solid var(--hair-dark);
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 20px;
+  line-height: 1.35;
+  display: inline-block;
 }
 
 @media (max-width: 780px) {
+  #work-head {
+    padding: clamp(40px, 7vw, 64px) clamp(16px, 4.5vw, 32px) 0;
+  }
+
+  #work-head h2 {
+    font-size: clamp(32px, 8vw, 56px);
+  }
+
   .case {
     grid-template-columns: 1fr;
+    gap: 24px;
+    padding: clamp(36px, 6vh, 52px) clamp(16px, 4.5vw, 32px);
   }
+
   .case:nth-child(even) .case-media {
     order: 0;
+  }
+
+  .case-media {
+    aspect-ratio: 16/10;
+    max-height: 280px;
+  }
+
+  .case-media .glyph {
+    font-size: clamp(48px, 12vw, 84px);
+  }
+
+  .case-body h3 {
+    font-size: clamp(24px, 6vw, 34px);
+    margin-bottom: 12px;
+  }
+
+  .case-body p {
+    font-size: 14.5px;
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+
+  .case-body .tag {
+    font-size: 12px;
+    margin-bottom: 10px;
   }
 }

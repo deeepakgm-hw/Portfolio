@@ -51,5 +51,38 @@
 @media (max-width: 780px) {
   .process-grid {
     grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  #process h2 {
+    font-size: clamp(28px, 7.5vw, 44px);
+    margin-bottom: 14px;
+  }
+
+  #process .lede {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .step {
+    grid-template-columns: 36px 1fr;
+    gap: 12px;
+    padding: 18px 0;
+  }
+
+  .step .n {
+    font-size: 13px;
+  }
+
+  .step h4 {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .step p {
+    font-size: 13.5px;
+    line-height: 1.5;
   }
 }

@@ -13,7 +13,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 3. Initialize contact form handling
   setupContactForm();
 
-  // 4. Initialize boot loader and hero animations
+  // 4. Initialize mobile navigation drawer
+  setupMobileNav();
+
+  // 5. Initialize boot loader and hero animations
   initLoader(() => {
     revealHero();
     initScrollReveals();
@@ -189,6 +192,60 @@ function showToast(message, type = 'success', duration = 5000) {
   if (duration > 0) {
     setTimeout(dismiss, duration);
   }
+}
+
+/**
+ * Setup mobile navigation menu toggle and overlay interactions
+ */
+function setupMobileNav() {
+  const nav = document.querySelector('nav');
+  const toggleBtn = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+  if (!nav || !toggleBtn || !navLinks) return;
+
+  const closeNav = () => {
+    nav.classList.remove('menu-open');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+
+  const openNav = () => {
+    nav.classList.add('menu-open');
+    toggleBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  };
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = nav.classList.contains('menu-open');
+    if (isOpen) {
+      closeNav();
+    } else {
+      openNav();
+    }
+  });
+
+  // Close when clicking any nav link
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      closeNav();
+    });
+  });
+
+  // Close on Escape key press
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('menu-open')) {
+      closeNav();
+      toggleBtn.focus();
+    }
+  });
+
+  // Close when clicking outside of nav
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('menu-open') && !nav.contains(e.target)) {
+      closeNav();
+    }
+  });
 }
 
 function escapeHtml(str) {

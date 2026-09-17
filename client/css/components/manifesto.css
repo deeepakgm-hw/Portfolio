@@ -200,7 +200,7 @@
 @media (max-width: 960px) {
   .manifesto-grid {
     grid-template-columns: 1fr;
-    gap: 52px;
+    gap: 40px;
   }
   .manifesto-left {
     position: static;
@@ -211,24 +211,50 @@
 }
 
 @media (max-width: 600px) {
-  .manifesto-lede {
-    margin-bottom: 32px;
-    padding-bottom: 20px;
+  .manifesto-quote {
+    font-size: clamp(21px, 5.6vw, 30px);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
   }
   .capabilities-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    padding-bottom: 14px;
   }
   .experience-stat {
     text-align: left;
+    gap: 8px;
+  }
+  .stat-num {
+    font-size: 30px;
+  }
+  .stat-desc {
+    font-size: 9.5px;
+    letter-spacing: 0.07em;
+  }
+  .capability-row {
+    padding: 18px 0;
+  }
+  .capability-name {
+    font-size: 17px;
   }
   .capability-desc,
   .capability-tech {
     padding-left: 0;
   }
+  .capability-desc {
+    font-size: 13.5px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .capability-tech {
+    font-size: 11px;
+    line-height: 1.45;
+    word-break: break-word;
+  }
   .capability-heading {
-    gap: 12px;
+    gap: 10px;
   }
 }
 

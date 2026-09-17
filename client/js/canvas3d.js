@@ -1,10 +1,11 @@
 /**
  * Three.js scroll-linked and mouse-interactive wireframe background
- * Enhanced with subtle idle rotation, cursor proximity response, smooth lerp damping,
- * and responsive positioning across mobile/tablet/desktop.
+ * Optimized for mobile performance: DPR capping, off-screen animation pausing,
+ * and responsive positioning so the wireframe never obscures text.
  */
 export function initCanvas3D() {
   const canvas = document.getElementById('hero-canvas');
+  const heroSection = document.getElementById('hero');
   if (!canvas || !window.THREE) return;
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -13,8 +14,20 @@ export function initCanvas3D() {
   const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
   camera.position.z = 6;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  const isMobileInitial = window.innerWidth <= 768;
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: !isMobileInitial,
+    powerPreference: 'high-performance'
+  });
+
+  // Mobile Performance: Cap pixel ratio to 1.0 on mobile to protect battery and GPU fillrate
+  function updatePixelRatio() {
+    const isMobile = window.innerWidth <= 768;
+    renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.75));
+  }
+  updatePixelRatio();
   renderer.setSize(window.innerWidth, window.innerHeight);
 
   // Primary large violet wireframe icosahedron
@@ -54,30 +67,31 @@ export function initCanvas3D() {
     const width = window.innerWidth;
     camera.aspect = width / window.innerHeight;
     camera.updateProjectionMatrix();
+    updatePixelRatio();
     renderer.setSize(width, window.innerHeight);
 
     if (width <= 480) {
-      // Mobile: position wireframe behind & upper right, scaled down so it doesn't collide with text
-      targetBaseX1 = 0.6;
-      targetBaseY1 = 0.9;
-      targetBaseZ1 = -1.6;
-      targetBaseScale1 = 0.68;
-      targetOpacity1 = 0.26;
+      // Mobile phone: Position wireframe subtle and high up in background so it NEVER collides with headline
+      targetBaseX1 = 0.4;
+      targetBaseY1 = 1.4;
+      targetBaseZ1 = -2.4;
+      targetBaseScale1 = 0.52;
+      targetOpacity1 = 0.14;
 
-      targetBaseX2 = -1.2;
-      targetBaseY2 = 2.2;
-      targetBaseZ2 = -2.2;
+      mesh2.visible = false; // Disable secondary mesh to save draw calls & clutter on small phones
     } else if (width <= 768) {
       // Tablet portrait
-      targetBaseX1 = 1.2;
-      targetBaseY1 = 0.4;
-      targetBaseZ1 = -0.8;
-      targetBaseScale1 = 0.8;
-      targetOpacity1 = 0.38;
+      targetBaseX1 = 1.1;
+      targetBaseY1 = 0.5;
+      targetBaseZ1 = -1.0;
+      targetBaseScale1 = 0.72;
+      targetOpacity1 = 0.28;
 
-      targetBaseX2 = -1.8;
-      targetBaseY2 = 1.9;
-      targetBaseZ2 = -1.5;
+      mesh2.visible = true;
+      targetBaseX2 = -1.6;
+      targetBaseY2 = 1.8;
+      targetBaseZ2 = -1.8;
+      mat2.opacity = 0.2;
     } else if (width <= 1100) {
       // Small laptop / tablet landscape
       targetBaseX1 = 1.7;
@@ -86,9 +100,11 @@ export function initCanvas3D() {
       targetBaseScale1 = 0.9;
       targetOpacity1 = 0.46;
 
+      mesh2.visible = true;
       targetBaseX2 = -2.1;
       targetBaseY2 = 1.6;
       targetBaseZ2 = -1.2;
+      mat2.opacity = 0.32;
     } else {
       // Standard Desktop
       targetBaseX1 = 2.1;
@@ -97,9 +113,11 @@ export function initCanvas3D() {
       targetBaseScale1 = 1;
       targetOpacity1 = 0.52;
 
+      mesh2.visible = true;
       targetBaseX2 = -2.4;
       targetBaseY2 = 1.6;
       targetBaseZ2 = -1;
+      mat2.opacity = 0.36;
     }
 
     mesh1.scale.setScalar(targetBaseScale1);
@@ -136,7 +154,8 @@ export function initCanvas3D() {
   let idleRot2X = 0;
   let idleRot2Y = 0;
 
-  let animFrameId;
+  let animFrameId = null;
+  let isHeroVisible = true;
 
   function renderFrame() {
     renderer.render(scene, camera);
@@ -154,6 +173,11 @@ export function initCanvas3D() {
   }
 
   function animate() {
+    if (!isHeroVisible) {
+      animFrameId = null;
+      return; // Pause animation loop completely when hero is scrolled out of view!
+    }
+
     animFrameId = requestAnimationFrame(animate);
 
     // Smooth easing / lerp on mouse coordinates
@@ -181,17 +205,19 @@ export function initCanvas3D() {
     mesh1.position.y = targetBaseY1 - scrollT * 1.35 + currentMouseY * 0.18;
     mesh1.position.z = targetBaseZ1;
 
-    // Secondary object independent subtle movement
-    idleRot2X -= 0.001;
-    idleRot2Y += 0.0015;
+    // Secondary object independent movement (if visible)
+    if (mesh2.visible) {
+      idleRot2X -= 0.001;
+      idleRot2Y += 0.0015;
 
-    mesh2.rotation.x = idleRot2X - currentMouseY * 0.15;
-    mesh2.rotation.y = idleRot2Y - currentMouseX * 0.2;
-    mesh2.position.x = targetBaseX2 - currentMouseX * 0.2;
-    mesh2.position.y = targetBaseY2 + scrollT * 1.6 - currentMouseY * 0.15;
-    mesh2.position.z = targetBaseZ2;
+      mesh2.rotation.x = idleRot2X - currentMouseY * 0.15;
+      mesh2.rotation.y = idleRot2Y - currentMouseX * 0.2;
+      mesh2.position.x = targetBaseX2 - currentMouseX * 0.2;
+      mesh2.position.y = targetBaseY2 + scrollT * 1.6 - currentMouseY * 0.15;
+      mesh2.position.z = targetBaseZ2;
+    }
 
-    // Very gentle camera parallax
+    // Gentle camera parallax
     camera.position.x += (currentMouseX * 0.32 - camera.position.x) * 0.035;
     camera.position.y += (currentMouseY * 0.24 - camera.position.y) * 0.035;
     camera.lookAt(0, 0, 0);
@@ -199,10 +225,26 @@ export function initCanvas3D() {
     renderFrame();
   }
 
+  // Performance Optimization: IntersectionObserver pauses RAF when Hero is off-screen
+  let heroObserver = null;
+  if ('IntersectionObserver' in window && heroSection) {
+    heroObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const wasVisible = isHeroVisible;
+        isHeroVisible = entry.isIntersecting;
+        if (isHeroVisible && !animFrameId) {
+          animate();
+        }
+      });
+    }, { threshold: 0.02 });
+    heroObserver.observe(heroSection);
+  }
+
   animate();
 
   return () => {
-    cancelAnimationFrame(animFrameId);
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    if (heroObserver) heroObserver.disconnect();
     window.removeEventListener('resize', updateResponsiveBounds);
     renderer.dispose();
   };

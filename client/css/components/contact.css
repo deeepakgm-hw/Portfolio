@@ -19,9 +19,11 @@
 }
 
 #close h2 {
-  font-size: clamp(42px, 7.5vw, 112px);
-  line-height: 0.94;
+  font-size: clamp(28px, 7.2vw, 112px);
+  line-height: 0.95;
   margin-bottom: 22px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 #close h2 a {
@@ -390,4 +392,72 @@
   outline-offset: 4px;
   border-radius: 2px;
   color: var(--cream);
+}
+
+@media (max-width: 640px) {
+  #close h2 {
+    font-size: clamp(23px, 6.8vw, 36px);
+    line-height: 1.05;
+    word-break: break-all;
+    margin-bottom: 16px;
+  }
+
+  .contact-lead {
+    margin-bottom: 32px;
+  }
+
+  .contact-sub {
+    font-size: 14.5px;
+  }
+
+  .contact-card {
+    padding: clamp(20px, 5vw, 32px) clamp(16px, 4.5vw, 24px);
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px; /* Prevents auto-zoom in iOS Safari */
+    padding: 13px 14px;
+    min-height: 48px;
+    border-radius: 3px;
+  }
+
+  .form-group textarea {
+    min-height: 110px;
+  }
+
+  .btn-submit {
+    width: 100%;
+    min-height: 48px;
+    font-size: 14px;
+    justify-content: center;
+  }
+
+  .close-foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .close-foot span {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .close-foot .socials {
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .close-foot .socials a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 14px;
+  }
 }
