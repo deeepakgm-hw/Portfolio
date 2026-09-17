@@ -99,14 +99,16 @@
   font-weight: 400;
 }
 
-/* 3. Oversized Headline */
+/* 3. Oversized Monumental Title-Card Headline */
 #hero h1 {
-  font-size: clamp(40px, 7.2vw, 126px);
-  line-height: 0.88;
+  font-size: clamp(44px, 10.5vw, 168px);
+  line-height: 0.81;
   text-transform: uppercase;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.025em;
   display: block;
-  margin-bottom: clamp(26px, 4vh, 40px);
+  margin-bottom: clamp(28px, 4.5vh, 48px);
+  font-weight: 900;
+  text-shadow: 0 0 30px rgba(20, 18, 15, 0.75);
 }
 
 #hero h1 span {

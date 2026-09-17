@@ -1,4 +1,12 @@
 /* ---------- Process (light, print columns) ---------- */
+#process {
+  position: relative;
+  z-index: 5;
+  box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.45);
+  border-top: 1px solid var(--hair-light);
+  border-bottom: 1px solid var(--hair-light);
+}
+
 .process-grid {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
@@ -6,8 +14,10 @@
 }
 
 #process h2 {
-  font-size: clamp(34px, 5vw, 58px);
-  margin-bottom: 20px;
+  font-size: clamp(48px, 10.5vw, 156px);
+  line-height: 0.80;
+  letter-spacing: -0.025em;
+  margin-bottom: 24px;
 }
 
 #process .lede {

@@ -1,10 +1,17 @@
-/* ---------- Work (dark, modular) ---------- */
+#work {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
 #work-head {
-  padding: clamp(60px, 10vw, 110px) clamp(20px, 6vw, 56px) 0;
+  padding: clamp(72px, 10vw, 130px) clamp(20px, 5vw, 64px) clamp(24px, 4vh, 48px);
 }
 
 #work-head h2 {
-  font-size: clamp(38px, 6vw, 72px);
+  font-size: clamp(52px, 12.5vw, 184px);
+  line-height: 0.79;
+  letter-spacing: -0.03em;
 }
 
 .case {
@@ -16,8 +23,47 @@
   border-top: 1px solid var(--hair-dark);
 }
 
-.case:nth-child(even) .case-media {
-  order: 2;
+/* Widescreen Hero Moment Case Study */
+.case-hero-moment {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  padding: clamp(64px, 8vh, 96px) clamp(20px, 5vw, 64px);
+}
+
+.case-hero-moment .case-media {
+  width: 100%;
+  aspect-ratio: 21/9;
+  max-height: 480px;
+  background: linear-gradient(135deg, #1C1914, #2A231A);
+  border: 1px solid var(--hair-dark);
+}
+
+.case-hero-moment .case-media .glyph {
+  font-size: clamp(80px, 16vw, 180px);
+  color: rgba(240, 235, 224, 0.08);
+}
+
+.case-hero-moment .case-body {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.case-hero-moment .case-body h3 {
+  font-size: clamp(34px, 4.8vw, 68px);
+  line-height: 0.90;
+  margin-top: 4px;
+}
+
+/* Asymmetric Editorial Split (Case 02) */
+.case-editorial-split {
+  grid-template-columns: 1.15fr 0.85fr;
+}
+
+.case-editorial-split .case-media {
+  aspect-ratio: 16/11;
 }
 
 .case-media {

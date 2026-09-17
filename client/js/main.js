@@ -1,5 +1,5 @@
 import { initLoader } from './loader.js';
-import { initCanvas3D } from './canvas3d.js';
+import { initCanvas3D, triggerCanvas3DEntrance } from './canvas3d.js';
 import { revealHero, initScrollReveals } from './animations.js';
 import { api } from './api.js';
 
@@ -16,11 +16,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 4. Initialize mobile navigation drawer
   setupMobileNav();
 
-  // 5. Initialize boot loader and hero animations
-  initLoader(() => {
-    revealHero();
-    initScrollReveals();
-  });
+  // 5. Initialize boot loader, 3D centerpiece entrance, and hero animations
+  initLoader(
+    () => {
+      revealHero();
+      initScrollReveals();
+    },
+    () => {
+      triggerCanvas3DEntrance();
+    }
+  );
 });
 
 /**
@@ -47,18 +52,50 @@ async function loadProjects() {
       : `<span class="glyph" aria-hidden="true">${glyphNum}</span>`;
 
     const article = document.createElement('article');
-    article.className = 'case';
-    article.innerHTML = `
-      <div class="case-media">${mediaHtml}</div>
-      <div class="case-body">
-        <p class="tag mono">${escapeHtml(proj.year || '')} — ${escapeHtml(proj.category || '')}</p>
-        <h3 class="display">${escapeHtml(proj.title)}</h3>
-        <p>${escapeHtml(proj.description)}</p>
-        <div class="stack">
-          ${tagsHtml}
+    if (idx === 0) {
+      article.className = 'case case-hero-moment';
+      article.innerHTML = `
+        <div class="case-media">${mediaHtml}</div>
+        <div class="case-body">
+          <div>
+            <p class="tag mono">${escapeHtml(proj.year || '')} — ${escapeHtml(proj.category || '')}</p>
+            <h3 class="display">${escapeHtml(proj.title)}</h3>
+          </div>
+          <div>
+            <p>${escapeHtml(proj.description)}</p>
+            <div class="stack">
+              ${tagsHtml}
+            </div>
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    } else if (idx === 1) {
+      article.className = 'case case-editorial-split';
+      article.innerHTML = `
+        <div class="case-body">
+          <p class="tag mono">${escapeHtml(proj.year || '')} — ${escapeHtml(proj.category || '')}</p>
+          <h3 class="display">${escapeHtml(proj.title)}</h3>
+          <p>${escapeHtml(proj.description)}</p>
+          <div class="stack">
+            ${tagsHtml}
+          </div>
+        </div>
+        <div class="case-media">${mediaHtml}</div>
+      `;
+    } else {
+      article.className = 'case';
+      article.innerHTML = `
+        <div class="case-media">${mediaHtml}</div>
+        <div class="case-body">
+          <p class="tag mono">${escapeHtml(proj.year || '')} — ${escapeHtml(proj.category || '')}</p>
+          <h3 class="display">${escapeHtml(proj.title)}</h3>
+          <p>${escapeHtml(proj.description)}</p>
+          <div class="stack">
+            ${tagsHtml}
+          </div>
+        </div>
+      `;
+    }
     container.appendChild(article);
   });
 }

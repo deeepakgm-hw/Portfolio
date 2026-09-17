@@ -148,49 +148,52 @@
           </div>
         </div>
 
-        <div class="capability-list">
-          <div class="capability-row">
-            <div class="capability-top">
-              <div class="capability-heading">
-                <span class="capability-num mono">01</span>
-                <h4 class="capability-name">PRODUCT SYSTEMS</h4>
-              </div>
+        <div class="capability-modular-grid">
+          <div class="cap-block cap-featured">
+            <div class="cap-top">
+              <span class="cap-num mono">01</span>
+              <span class="cap-badge mono">CORE SYSTEMS</span>
             </div>
-            <p class="capability-desc">Interfaces and products designed to scale beyond the prototype.</p>
-            <span class="capability-tech mono">React · TypeScript · Design Systems · Modern Web</span>
+            <h4 class="cap-name">PRODUCT SYSTEMS</h4>
+            <p class="cap-desc">Interfaces and products designed to scale beyond the prototype.</p>
+            <div class="cap-tech-wrap">
+              <span class="cap-tech mono">React · TypeScript · Design Systems · Modern Web</span>
+            </div>
           </div>
 
-          <div class="capability-row">
-            <div class="capability-top">
-              <div class="capability-heading">
-                <span class="capability-num mono">02</span>
-                <h4 class="capability-name">BACKEND &amp; INFRA</h4>
-              </div>
+          <div class="cap-block cap-infra">
+            <div class="cap-top">
+              <span class="cap-num mono">02</span>
             </div>
-            <p class="capability-desc">APIs, databases, authentication, synchronization and reliable infrastructure.</p>
-            <span class="capability-tech mono">Node.js · PostgreSQL · SQLite · Redis · Realtime Sync</span>
+            <h4 class="cap-name">BACKEND &amp; INFRA</h4>
+            <p class="cap-desc">APIs, databases, authentication, synchronization and reliable infrastructure.</p>
+            <div class="cap-tech-wrap">
+              <span class="cap-tech mono">Node.js · PostgreSQL · SQLite · Redis · Realtime Sync</span>
+            </div>
           </div>
 
-          <div class="capability-row">
-            <div class="capability-top">
-              <div class="capability-heading">
-                <span class="capability-num mono">03</span>
-                <h4 class="capability-name">INTERACTION</h4>
-              </div>
+          <div class="cap-block cap-motion">
+            <div class="cap-top">
+              <span class="cap-num mono">03</span>
             </div>
-            <p class="capability-desc">Thoughtful UX, motion and realtime interfaces that make complex systems feel simple.</p>
-            <span class="capability-tech mono">WebGL · Three.js · GSAP · WebSockets · Micro-interactions</span>
+            <h4 class="cap-name">INTERACTION</h4>
+            <p class="cap-desc">Thoughtful UX, motion and realtime interfaces that make complex systems feel simple.</p>
+            <div class="cap-tech-wrap">
+              <span class="cap-tech mono">WebGL · Three.js · GSAP · WebSockets · Micro-interactions</span>
+            </div>
           </div>
 
-          <div class="capability-row">
-            <div class="capability-top">
-              <div class="capability-heading">
-                <span class="capability-num mono">04</span>
-                <h4 class="capability-name">SHIPPED SOFTWARE</h4>
+          <div class="cap-block cap-shipped">
+            <div class="cap-top">
+              <span class="cap-num mono">04</span>
+            </div>
+            <div class="cap-shipped-content">
+              <h4 class="cap-name">SHIPPED SOFTWARE</h4>
+              <p class="cap-desc">Turning ideas into production-ready software from architecture to deployment.</p>
+              <div class="cap-tech-wrap">
+                <span class="cap-tech mono">Architecture · Docker · CI/CD · Cloud · Zero-Downtime</span>
               </div>
             </div>
-            <p class="capability-desc">Turning ideas into production-ready software from architecture to deployment.</p>
-            <span class="capability-tech mono">Architecture · Docker · CI/CD · Cloud · Zero-Downtime</span>
           </div>
         </div>
       </div>
@@ -198,26 +201,29 @@
   </section>
 
   <!-- Selected Work (Dynamically Loaded via REST API) -->
-  <section class="dark">
+  <section id="work" class="dark">
     <div id="work-head">
       <h2 class="display">Selected<br>Work</h2>
     </div>
     
     <div id="projects-container">
       <!-- Fallback / Initial Server Rendered Content -->
-      <article class="case">
+      <article class="case case-hero-moment">
         <div class="case-media"><span class="glyph" aria-hidden="true">01</span></div>
         <div class="case-body">
-          <p class="tag mono">2025 — Realtime infrastructure</p>
-          <h3 class="display">Nimbus Sync Engine</h3>
-          <p>Rebuilt the collaboration layer for a 40-person design tool from a polling API to a CRDT-backed WebSocket engine. Cut sync latency from ~800ms to under 60ms and made concurrent editing actually pleasant.</p>
-          <div class="stack">
-            <span>Rust</span><span>WebSockets</span><span>CRDT</span><span>Redis</span>
+          <div>
+            <p class="tag mono">2025 — Realtime infrastructure</p>
+            <h3 class="display">Nimbus Sync Engine</h3>
+          </div>
+          <div>
+            <p>Rebuilt the collaboration layer for a 40-person design tool from a polling API to a CRDT-backed WebSocket engine. Cut sync latency from ~800ms to under 60ms and made concurrent editing actually pleasant.</p>
+            <div class="stack">
+              <span>Rust</span><span>WebSockets</span><span>CRDT</span><span>Redis</span>
+            </div>
           </div>
         </div>
       </article>
-      <article class="case">
-        <div class="case-media"><span class="glyph" aria-hidden="true">02</span></div>
+      <article class="case case-editorial-split">
         <div class="case-body">
           <p class="tag mono">2024 — Platform migration</p>
           <h3 class="display">Atlas Analytics</h3>
@@ -226,6 +232,7 @@
             <span>Kafka</span><span>dbt</span><span>Snowflake</span><span>TypeScript</span>
           </div>
         </div>
+        <div class="case-media"><span class="glyph" aria-hidden="true">02</span></div>
       </article>
       <article class="case">
         <div class="case-media"><span class="glyph" aria-hidden="true">03</span></div>
