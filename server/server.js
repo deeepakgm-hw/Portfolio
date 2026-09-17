@@ -14,6 +14,9 @@ require('./config/db');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust reverse proxies (Render, Cloudflare, etc.) to resolve real client IP
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(cors());
 app.use(express.json());

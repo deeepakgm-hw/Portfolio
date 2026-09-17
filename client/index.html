@@ -277,6 +277,13 @@
             <label for="contact-message">Project or Inquiry Details</label>
             <textarea id="contact-message" name="message" placeholder="Tell me about what you are building..." required></textarea>
           </div>
+
+          <!-- Honeypot field (hidden from humans, trapped for bots) -->
+          <div class="form-hp" aria-hidden="true" style="position:absolute; left:-9999px; top:-9999px; opacity:0; pointer-events:none;">
+            <label for="contact-website">Website</label>
+            <input type="text" id="contact-website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
           <button type="submit" class="btn-submit">Send Message →</button>
           <div id="form-status" class="form-status" role="alert" aria-live="polite"></div>
         </form>

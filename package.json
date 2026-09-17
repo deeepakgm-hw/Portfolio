@@ -11,13 +11,21 @@
   "engines": {
     "node": ">=20.0.0 <=22.x"
   },
-  "keywords": ["portfolio", "full-stack", "express", "sqlite", "threejs", "gsap"],
+  "keywords": [
+    "portfolio",
+    "full-stack",
+    "express",
+    "sqlite",
+    "threejs",
+    "gsap"
+  ],
   "author": "Deepak GM",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "nodemailer": "^10.0.10",
     "sqlite3": "^5.1.7"
   }
 }

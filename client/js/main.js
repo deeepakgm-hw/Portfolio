@@ -94,6 +94,7 @@ function setupContactForm() {
     const nameInput = form.name;
     const emailInput = form.email;
     const messageInput = form.message;
+    const website = form.website ? form.website.value : '';
 
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
@@ -124,7 +125,7 @@ function setupContactForm() {
       submitBtn.innerText = 'Sending message...';
       showStatus('', 'hide');
 
-      await api.submitContact({ name, email, message });
+      await api.submitContact({ name, email, message, website });
 
       // Success State: show dedicated confirmation view and toast
       if (userEmailEl) userEmailEl.textContent = email;
