@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="grad" cx="70%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#2a1f4d" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#14120F" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="violetLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6C5CE7"/>
+      <stop offset="100%" stop-color="#B8451F"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#14120F"/>
+  <rect width="1200" height="630" fill="url(#grad)"/>
+
+  <!-- Subtle grid lines -->
+  <line x1="80" y1="0" x2="80" y2="630" stroke="rgba(240, 235, 224, 0.04)" stroke-width="1"/>
+  <line x1="1120" y1="0" x2="1120" y2="630" stroke="rgba(240, 235, 224, 0.04)" stroke-width="1"/>
+  <line x1="0" y1="80" x2="1200" y2="80" stroke="rgba(240, 235, 224, 0.04)" stroke-width="1"/>
+  <line x1="0" y1="550" x2="1200" y2="550" stroke="rgba(240, 235, 224, 0.04)" stroke-width="1"/>
+
+  <!-- Top Status Badge -->
+  <rect x="80" y="80" width="310" height="34" rx="4" fill="rgba(240, 235, 224, 0.05)" stroke="rgba(240, 235, 224, 0.12)" stroke-width="1"/>
+  <circle cx="102" cy="97" r="4" fill="#2ecc71"/>
+  <text x="118" y="102" font-family="'Courier New', monospace" font-size="12" font-weight="600" fill="#A39B8B" letter-spacing="1.5">AVAILABLE FOR SELECT PROJECTS</text>
+
+  <!-- Name & Subtitle -->
+  <text x="80" y="180" font-family="'Courier New', monospace" font-size="20" font-weight="600" fill="#6C5CE7" letter-spacing="3">DEEPAK GM // SOFTWARE ENGINEER</text>
+
+  <!-- Main Display Tagline -->
+  <text x="80" y="270" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="64" fill="#F0EBE0" letter-spacing="-1">BUILDING SYSTEMS</text>
+  <text x="80" y="345" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="64" fill="#6C5CE7" letter-spacing="-1">THAT SCALE,</text>
+  <text x="80" y="420" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="64" fill="#F0EBE0" letter-spacing="-1">FROM DATABASE TO PIXEL.</text>
+
+  <!-- Footer Metadata -->
+  <line x1="80" y1="480" x2="1120" y2="480" stroke="url(#violetLine)" stroke-width="2"/>
+  <text x="80" y="525" font-family="'Courier New', monospace" font-size="15" fill="#A39B8B" letter-spacing="1.2">BASED IN BENGALURU, INDIA · WORKING WORLDWIDE</text>
+  <text x="1120" y="525" font-family="'Courier New', monospace" font-size="15" fill="#6C5CE7" letter-spacing="1.5" text-anchor="end">DEEPAKGM.DEV</text>
+
+  <!-- Wireframe 3D Icosahedron Graphic on the Right -->
+  <g transform="translate(940, 280)">
+    <polygon points="0,-140 120,-70 120,70 0,140 -120,70 -120,-70" fill="none" stroke="#6C5CE7" stroke-width="2.5" opacity="0.85"/>
+    <polygon points="0,-90 80,-45 80,45 0,90 -80,45 -80,-45" fill="none" stroke="#B8451F" stroke-width="1.8" opacity="0.6"/>
+    <line x1="0" y1="-140" x2="0" y2="140" stroke="#6C5CE7" stroke-width="1.5" opacity="0.5"/>
+    <line x1="-120" y1="-70" x2="120" y2="70" stroke="#6C5CE7" stroke-width="1.5" opacity="0.5"/>
+    <line x1="120" y1="-70" x2="-120" y2="70" stroke="#6C5CE7" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="0" cy="0" r="5" fill="#F0EBE0"/>
+  </g>
+</svg>
