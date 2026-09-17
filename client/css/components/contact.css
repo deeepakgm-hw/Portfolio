@@ -6,22 +6,22 @@
   justify-content: center;
 }
 
+.contact-lead {
+  max-width: 1100px;
+  margin-bottom: clamp(40px, 6vh, 64px);
+}
+
+.contact-lead .label,
 #close .label {
   font-size: 14px;
   color: var(--muted-dark);
   margin-bottom: 20px;
 }
 
-.contact-container {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 64px;
-  align-items: start;
-}
-
 #close h2 {
-  font-size: clamp(40px, 7.5vw, 110px);
-  line-height: 0.95;
+  font-size: clamp(42px, 7.5vw, 112px);
+  line-height: 0.94;
+  margin-bottom: 22px;
 }
 
 #close h2 a {
@@ -34,24 +34,37 @@
   color: var(--violet);
 }
 
-/* Contact Form */
+.contact-sub {
+  color: var(--muted-dark);
+  font-size: clamp(15px, 1.35vw, 17px);
+  line-height: 1.6;
+  max-width: 52ch;
+}
+
+/* Contact Form (Stacked below Let's Talk block) */
 .contact-card {
   background: var(--charcoal-2);
   border: 1px solid var(--hair-dark);
-  padding: clamp(24px, 4vw, 36px);
+  padding: clamp(28px, 4.5vw, 44px);
   border-radius: 4px;
+  max-width: 780px;
+  margin-bottom: 24px;
+}
+
+.contact-card-header {
+  margin-bottom: 24px;
 }
 
 .contact-card h3 {
-  font-size: 20px;
-  margin-bottom: 8px;
+  font-size: 22px;
+  margin-bottom: 6px;
   font-weight: 600;
+  color: var(--cream);
 }
 
 .contact-card p.form-desc {
   font-size: 14px;
   color: var(--muted-dark);
-  margin-bottom: 24px;
 }
 
 .form-group {
@@ -101,13 +114,33 @@
   resize: vertical;
 }
 
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.form-actions {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 .btn-submit {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 14px;
   background: var(--violet);
   color: #fff;
   border: none;
-  padding: 12px 24px;
+  padding: 13px 32px;
   cursor: pointer;
   border-radius: 2px;
   font-weight: 500;
@@ -116,7 +149,14 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  width: 100%;
+  width: auto;
+  min-width: 200px;
+}
+
+@media (max-width: 600px) {
+  .btn-submit {
+    width: 100%;
+  }
 }
 
 .btn-submit:hover:not(:disabled) {
@@ -350,11 +390,4 @@
   outline-offset: 4px;
   border-radius: 2px;
   color: var(--cream);
-}
-
-@media (max-width: 900px) {
-  .contact-container {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
 }
