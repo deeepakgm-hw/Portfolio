@@ -14,9 +14,13 @@
 }
 
 #process h2 {
-  font-size: clamp(48px, 10.5vw, 156px);
-  line-height: 0.80;
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 9.5vw, 136px);
+  line-height: 0.88;
   letter-spacing: -0.025em;
+  font-weight: 500;
+  font-optical-sizing: auto;
+  text-transform: none;
   margin-bottom: 24px;
 }
 

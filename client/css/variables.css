@@ -1,9 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600&display=swap');
 
 :root {
+  /* Editorial Archive Palette */
   --charcoal: #14120F;
   --charcoal-2: #1E1B16;
   --cream: #F0EBE0;
+  --cream-card: #EAE4D7;
+  --cream-card-hover: #E5DFC8;
   --ink: #1B1812;
   --violet: #6C5CE7;
   --ember: #B8451F;
@@ -11,4 +14,11 @@
   --muted-light: #7A7364;
   --hair-dark: rgba(240, 235, 224, 0.14);
   --hair-light: rgba(27, 24, 18, 0.14);
+
+  /* Typography System */
+  --font-display: 'Big Shoulders Display', -apple-system, sans-serif;
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
 }
+

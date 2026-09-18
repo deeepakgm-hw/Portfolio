@@ -59,7 +59,7 @@ async function loadProjects() {
         <div class="case-body">
           <div>
             <p class="tag mono">${escapeHtml(proj.year || '')} — ${escapeHtml(proj.category || '')}</p>
-            <h3 class="display">${escapeHtml(proj.title)}</h3>
+            <h3 class="serif">${escapeHtml(proj.title)}</h3>
           </div>
           <div>
             <p>${escapeHtml(proj.description)}</p>
@@ -74,7 +74,7 @@ async function loadProjects() {
       article.innerHTML = `
         <div class="case-body">
           <p class="tag mono">${escapeHtml(proj.year || '')} — ${escapeHtml(proj.category || '')}</p>
-          <h3 class="display">${escapeHtml(proj.title)}</h3>
+          <h3 class="serif">${escapeHtml(proj.title)}</h3>
           <p>${escapeHtml(proj.description)}</p>
           <div class="stack">
             ${tagsHtml}
@@ -88,7 +88,7 @@ async function loadProjects() {
         <div class="case-media">${mediaHtml}</div>
         <div class="case-body">
           <p class="tag mono">${escapeHtml(proj.year || '')} — ${escapeHtml(proj.category || '')}</p>
-          <h3 class="display">${escapeHtml(proj.title)}</h3>
+          <h3 class="serif">${escapeHtml(proj.title)}</h3>
           <p>${escapeHtml(proj.description)}</p>
           <div class="stack">
             ${tagsHtml}

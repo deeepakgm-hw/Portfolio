@@ -8,7 +8,9 @@ const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
 const SECTIONS = [
   { name: 'desktop-1440-hero', selector: '#hero' },
   { name: 'desktop-1440-capabilities', selector: '#manifesto' },
-  { name: 'desktop-1440-work', selector: '#work' }
+  { name: 'desktop-1440-work', selector: '#work' },
+  { name: 'desktop-1440-process', selector: '#process' },
+  { name: 'desktop-1440-contact', selector: '#close' }
 ];
 
 async function isServerReady(url) {

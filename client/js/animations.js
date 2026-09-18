@@ -30,7 +30,7 @@ export function initScrollReveals() {
 
   if (reduced || isMobile) {
     const allTargets = document.querySelectorAll(
-      '.manifesto-left, .capabilities-header, .cap-block, .case, .steps .step, #close .label, #close h2, .contact-card, .close-foot'
+      '.manifesto-left, .capabilities-header, .cap-block, #work-head, .case, #process .process-grid > div:first-child, .steps .step, #close .section-tag, #close .label, #close h2, .contact-card, .close-foot'
     );
     allTargets.forEach(el => {
       el.style.opacity = '1';
@@ -71,7 +71,7 @@ export function initScrollReveals() {
 
   // 2. Other Standard Scroll Reveals (Case Studies, Steps, Contact)
   const targets = document.querySelectorAll(
-    '.case, .steps .step, #close .label, #close h2, .contact-card, .close-foot'
+    '#work-head, .case, #process .process-grid > div:first-child, .steps .step, #close .section-tag, #close .label, #close h2, .contact-card, .close-foot'
   );
 
   targets.forEach(el => {
