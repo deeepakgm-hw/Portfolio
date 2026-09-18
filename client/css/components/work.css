@@ -72,10 +72,22 @@
 .case:hover,
 .specimen-card:focus-within,
 .case:focus-within {
-  transform: rotate(0deg) translateY(-8px) scale(1.008);
+  transform: rotate(0deg) translateY(-8px) scale(1.008) !important;
   border-color: rgba(108, 92, 231, 0.45);
   box-shadow: 0 28px 64px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(108, 92, 231, 0.25);
   z-index: 10;
+}
+
+.specimen-card:hover .case-media,
+.case:hover .case-media {
+  border-color: rgba(108, 92, 231, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(108, 92, 231, 0.25), 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.specimen-card:hover .case-media .glyph,
+.case:hover .case-media .glyph {
+  color: var(--cream);
+  transform: scale(1.06);
 }
 
 /* Specimen Card Top Header (Pin & Classification) */
@@ -145,6 +157,7 @@
   position: relative;
   padding: 16px;
   box-shadow: inset 0 0 0 1px rgba(240, 235, 224, 0.06);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 /* Archival registration marks in corners */
@@ -180,6 +193,7 @@
   letter-spacing: -0.02em;
   user-select: none;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
 }
 
 .case-media .case-img {
