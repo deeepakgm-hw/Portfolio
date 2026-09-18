@@ -1,11 +1,21 @@
 /**
- * Three.js 3D Wireframe Centerpiece (Cinematic Anchor)
- * Sized as a prominent visual focal object that physically intersects with the headline.
- * Features an uncoiling singularity bloom entrance animation timed with the loader curtain lift.
+ * Three.js 3D Extruded Wordmark Hero Visual
+ * Renders bold, deep-extruded 3D letterforms ("DEEPAK GM") in signature violet
+ * with subtle ember-colored rim and edge lighting.
+ * 
+ * Features:
+ * - Idle undulating rotation and pointer-responsive tilt (contact sheet orbit pattern)
+ * - Violet front & side materials with ember-colored specular and rim edge lighting
+ * - Subtle ember wireframe bevel accents outlining architectural letterform edges
+ * - Singularity bloom entrance animation coordinated with the loader curtain
+ * - Mobile-optimized geometry detail, capped DPR, and off-screen pause via IntersectionObserver
  */
+
 let triggerEntranceFn = null;
+let entranceTriggered = false;
 
 export function triggerCanvas3DEntrance() {
+  entranceTriggered = true;
   if (typeof triggerEntranceFn === 'function') {
     triggerEntranceFn();
   }
@@ -18,9 +28,10 @@ export function initCanvas3D() {
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Scene & Camera setup
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-  camera.position.z = 6;
+  const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.set(0, 0, 7.2);
 
   const isMobileInitial = window.innerWidth <= 768;
   const renderer = new THREE.WebGLRenderer({
@@ -30,54 +41,66 @@ export function initCanvas3D() {
     powerPreference: 'high-performance'
   });
 
-  // Performance: Cap pixel ratio to 1.0 on mobile to protect battery and GPU fillrate
   function updatePixelRatio() {
     const isMobile = window.innerWidth <= 768;
-    renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.75));
+    renderer.setPixelRatio(isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.75));
   }
   updatePixelRatio();
   renderer.setSize(window.innerWidth, window.innerHeight);
 
-  // Primary Monumental Violet Wireframe Icosahedron (Centerpiece)
-  // Geometry radius 3.3 for authoritative architectural scale on desktop
-  const geo1 = new THREE.IcosahedronGeometry(3.3, 1);
-  const edges1 = new THREE.EdgesGeometry(geo1);
-  const mat1 = new THREE.LineBasicMaterial({
-    color: 0x6C5CE7,
-    transparent: true,
-    opacity: 0.68,
-    linewidth: 1
-  });
-  const mesh1 = new THREE.LineSegments(edges1, mat1);
-  scene.add(mesh1);
+  // --- Lighting Architecture (Violet Body + Ember Edge Lighting) ---
+  // 1. Ambient Light with deep charcoal-violet hue
+  const ambientLight = new THREE.AmbientLight(0x1F1A26, 1.4);
+  scene.add(ambientLight);
 
-  // Secondary Ember/Copper Wireframe Icosahedron (Interlocking Harmonic Orbit)
-  const geo2 = new THREE.IcosahedronGeometry(1.5, 0);
-  const edges2 = new THREE.EdgesGeometry(geo2);
-  const mat2 = new THREE.LineBasicMaterial({
+  // 2. Key Directional Light: Soft violet fill illuminating front letter faces
+  const keyLight = new THREE.DirectionalLight(0x9E90FF, 1.8);
+  keyLight.position.set(-3.5, 4.0, 5.0);
+  scene.add(keyLight);
+
+  // 3. Ember Rim Light 1: Sharp grazing edge light from upper-right rear (#B8451F)
+  const emberRimLight1 = new THREE.DirectionalLight(0xB8451F, 3.8);
+  emberRimLight1.position.set(5.5, 2.5, -2.5);
+  scene.add(emberRimLight1);
+
+  // 4. Ember Rim Light 2: Warm grazing fill from bottom-left rear (#B8451F)
+  const emberRimLight2 = new THREE.PointLight(0xB8451F, 2.6, 18);
+  emberRimLight2.position.set(-2.0, -3.5, -1.8);
+  scene.add(emberRimLight2);
+
+  // --- Materials ---
+  // Front face material: Signature violet (#6C5CE7) with specular gloss
+  const matFront = new THREE.MeshStandardMaterial({
+    color: 0x6C5CE7,
+    roughness: 0.22,
+    metalness: 0.35,
+    flatShading: false
+  });
+
+  // Side & extrusion material: Deep dimensional violet with slightly lower metalness
+  const matSide = new THREE.MeshStandardMaterial({
+    color: 0x5444CD,
+    roughness: 0.38,
+    metalness: 0.28,
+    flatShading: false
+  });
+
+  // Subtle ember-colored bevel edge highlight line material
+  const matEdges = new THREE.LineBasicMaterial({
     color: 0xB8451F,
     transparent: true,
-    opacity: 0.52
+    opacity: 0.42
   });
-  const mesh2 = new THREE.LineSegments(edges2, mat2);
-  scene.add(mesh2);
 
-  // Responsive positioning parameters
-  let targetBaseX1 = 1.7;
-  let targetBaseY1 = -0.05;
-  let targetBaseZ1 = 0.2;
-  let targetBaseScale1 = 1.0;
-  let targetOpacity1 = 0.68;
+  // Main group containing the 3D wordmark
+  const wordmarkGroup = new THREE.Group();
+  scene.add(wordmarkGroup);
 
-  let targetBaseX2 = -2.6;
-  let targetBaseY2 = 1.7;
-  let targetBaseZ2 = -0.8;
-  let targetOpacity2 = 0.52;
-
-  // Entrance state: start as singularity if not reduced motion
-  let isEntrancing = !reduced;
-  let entranceScale = reduced ? 1.0 : 0.001;
-  let entranceSpinVelocity = reduced ? 0 : 0.09;
+  // Positioning & responsive bounds parameters
+  let targetBaseX = 1.8;
+  let targetBaseY = 0.05;
+  let targetBaseZ = 0.0;
+  let targetBaseScale = 0.88;
 
   function updateResponsiveBounds() {
     const width = window.innerWidth;
@@ -87,116 +110,182 @@ export function initCanvas3D() {
     renderer.setSize(width, window.innerHeight);
 
     if (width <= 480) {
-      // Small mobile: keep subtle and high up
-      targetBaseX1 = 0.4;
-      targetBaseY1 = 1.4;
-      targetBaseZ1 = -2.4;
-      targetBaseScale1 = 0.52;
-      targetOpacity1 = 0.14;
-      mesh2.visible = false;
+      // Small mobile: elegant architectural header above status bar
+      targetBaseX = 0.0;
+      targetBaseY = 2.22;
+      targetBaseZ = -1.0;
+      targetBaseScale = 0.22;
     } else if (width <= 768) {
-      // Tablet
-      targetBaseX1 = 1.1;
-      targetBaseY1 = 0.5;
-      targetBaseZ1 = -1.0;
-      targetBaseScale1 = 0.72;
-      targetOpacity1 = 0.28;
-
-      mesh2.visible = true;
-      targetBaseX2 = -1.6;
-      targetBaseY2 = 1.8;
-      targetBaseZ2 = -1.8;
-      targetOpacity2 = 0.2;
+      // Tablet portrait: positioned in right zone intersecting display headline
+      targetBaseX = 0.75;
+      targetBaseY = 0.05;
+      targetBaseZ = -0.8;
+      targetBaseScale = 0.36;
     } else if (width <= 1100) {
-      // Laptop
-      targetBaseX1 = 1.4;
-      targetBaseY1 = 0.0;
-      targetBaseZ1 = -0.2;
-      targetBaseScale1 = 0.88;
-      targetOpacity1 = 0.56;
-
-      mesh2.visible = true;
-      targetBaseX2 = -2.2;
-      targetBaseY2 = 1.6;
-      targetBaseZ2 = -1.0;
-      targetOpacity2 = 0.42;
+      // Small desktop / laptop
+      targetBaseX = 1.15;
+      targetBaseY = 0.15;
+      targetBaseZ = -0.4;
+      targetBaseScale = 0.64;
     } else {
-      // Desktop (>1100px): Hero Centerpiece physically interacting with typography
-      targetBaseX1 = 1.8;
-      targetBaseY1 = -0.05;
-      targetBaseZ1 = 0.25;
-      targetBaseScale1 = 1.0;
-      targetOpacity1 = 0.72;
-
-      mesh2.visible = true;
-      targetBaseX2 = -2.8;
-      targetBaseY2 = 1.8;
-      targetBaseZ2 = -0.6;
-      targetOpacity2 = 0.52;
+      // Large Desktop (>1100px): Dominant architectural centerpiece intersecting headline
+      targetBaseX = 1.45;
+      targetBaseY = 0.08;
+      targetBaseZ = 0.0;
+      targetBaseScale = 0.80;
     }
 
     if (!isEntrancing) {
-      mesh1.scale.setScalar(targetBaseScale1);
-      mat1.opacity = targetOpacity1;
-      mat2.opacity = targetOpacity2;
+      wordmarkGroup.scale.setScalar(targetBaseScale);
     }
   }
+
+  // Entrance animation state
+  let isEntrancing = !reduced;
+  let entranceScale = reduced ? 1.0 : 0.001;
+  let entranceSpin = reduced ? 0 : 0.12;
 
   updateResponsiveBounds();
   window.addEventListener('resize', updateResponsiveBounds);
 
-  mesh1.scale.setScalar(entranceScale * targetBaseScale1);
-  mesh2.scale.setScalar(entranceScale);
-  mat1.opacity = reduced ? targetOpacity1 : 0.0;
-  mat2.opacity = reduced ? targetOpacity2 : 0.0;
+  wordmarkGroup.scale.setScalar(entranceScale * targetBaseScale);
 
-  triggerEntranceFn = () => {
+  // --- Load Three.js Typeface Font & Build Extruded 3D Wordmark ---
+  let isFontLoaded = false;
+  const fontLoader = new THREE.FontLoader();
+
+  fontLoader.load(
+    '/fonts/helvetiker_bold.typeface.json',
+    (font) => {
+      buildWordmark(font);
+      isFontLoaded = true;
+
+      // If entrance was already triggered before font finished loading, run it now
+      if (entranceTriggered) {
+        triggerEntrance();
+      }
+    },
+    undefined,
+    (err) => {
+      console.warn('Three.js FontLoader failed to load local font, attempting fallback:', err);
+      setupFallbackText();
+    }
+  );
+
+  function buildWordmark(font) {
+    const isMobile = window.innerWidth <= 768;
+
+    // Extrusion parameters tuned for bold, deep-extruded letterforms
+    const textOptions = {
+      font: font,
+      size: 1.15,
+      height: isMobile ? 0.28 : 0.44, // Deep dimensional extrusion
+      curveSegments: isMobile ? 3 : 5,
+      bevelEnabled: true,
+      bevelThickness: isMobile ? 0.03 : 0.055,
+      bevelSize: isMobile ? 0.015 : 0.03,
+      bevelOffset: 0,
+      bevelSegments: isMobile ? 1 : 3
+    };
+
+    // Construct Line 1 ("DEEPAK")
+    const geo1 = new THREE.TextGeometry('DEEPAK', textOptions);
+    geo1.computeBoundingBox();
+    const width1 = geo1.boundingBox.max.x - geo1.boundingBox.min.x;
+    const height1 = geo1.boundingBox.max.y - geo1.boundingBox.min.y;
+
+    // Construct Line 2 ("GM")
+    const geo2 = new THREE.TextGeometry('GM', textOptions);
+    geo2.computeBoundingBox();
+    const width2 = geo2.boundingBox.max.x - geo2.boundingBox.min.x;
+    const height2 = geo2.boundingBox.max.y - geo2.boundingBox.min.y;
+
+    const materials = [matFront, matSide];
+
+    // Center each line horizontally within the group
+    const mesh1 = new THREE.Mesh(geo1, materials);
+    mesh1.position.set(-width1 / 2, 0.45, 0);
+
+    const mesh2 = new THREE.Mesh(geo2, materials);
+    mesh2.position.set(-width2 / 2, -1.05, 0);
+
+    // Subtle ember wireframe edge outlines for architectural precision
+    const edges1 = new THREE.EdgesGeometry(geo1, 26);
+    const lineMesh1 = new THREE.LineSegments(edges1, matEdges);
+    lineMesh1.position.copy(mesh1.position);
+
+    const edges2 = new THREE.EdgesGeometry(geo2, 26);
+    const lineMesh2 = new THREE.LineSegments(edges2, matEdges);
+    lineMesh2.position.copy(mesh2.position);
+
+    wordmarkGroup.add(mesh1);
+    wordmarkGroup.add(mesh2);
+    wordmarkGroup.add(lineMesh1);
+    wordmarkGroup.add(lineMesh2);
+
+    renderFrame();
+  }
+
+  // Graceful CSS-only fallback if WebGL text fails
+  function setupFallbackText() {
+    const heroInner = document.querySelector('.hero-inner');
+    if (!heroInner) return;
+    let fallbackEl = document.getElementById('hero-3d-fallback');
+    if (!fallbackEl) {
+      fallbackEl = document.createElement('div');
+      fallbackEl.id = 'hero-3d-fallback';
+      fallbackEl.className = 'hero-wordmark-fallback';
+      fallbackEl.innerHTML = '<span>DEEPAK</span><span>GM</span>';
+      heroInner.appendChild(fallbackEl);
+    }
+  }
+
+  // --- Entrance Bloom Trigger ---
+  function triggerEntrance() {
     if (reduced) return;
     isEntrancing = true;
 
     if (window.gsap) {
-      // Dramatic bloom entrance: uncoiling from a point into a monumental centerpiece
-      const animObj = { scale: 0.001, spin: 0.12, opacity1: 0, opacity2: 0 };
+      const animObj = { scale: 0.001, spin: 0.16, opacity: 0.0 };
       gsap.to(animObj, {
         scale: 1.0,
-        spin: 0,
-        opacity1: targetOpacity1,
-        opacity2: targetOpacity2,
+        spin: 0.0,
+        opacity: 1.0,
         duration: 1.85,
         ease: 'power4.out',
         onUpdate: () => {
-          mesh1.scale.setScalar(animObj.scale * targetBaseScale1);
-          mesh2.scale.setScalar(animObj.scale);
-          entranceSpinVelocity = animObj.spin;
-          mat1.opacity = animObj.opacity1;
-          mat2.opacity = animObj.opacity2;
+          wordmarkGroup.scale.setScalar(animObj.scale * targetBaseScale);
+          entranceSpin = animObj.spin;
         },
         onComplete: () => {
           isEntrancing = false;
         }
       });
     } else {
-      mesh1.scale.setScalar(targetBaseScale1);
-      mesh2.scale.setScalar(1);
-      mat1.opacity = targetOpacity1;
-      mat2.opacity = targetOpacity2;
+      wordmarkGroup.scale.setScalar(targetBaseScale);
       isEntrancing = false;
+    }
+  }
+
+  triggerEntranceFn = () => {
+    if (isFontLoaded) {
+      triggerEntrance();
     }
   };
 
-  // Mouse tracking with normalized coordinates (-1 to 1)
+  // --- Pointer Interaction (Contact Sheet Orbit Pattern) ---
   let targetMouseX = 0;
   let targetMouseY = 0;
   let currentMouseX = 0;
   let currentMouseY = 0;
 
   if (!reduced) {
-    window.addEventListener('mousemove', e => {
+    window.addEventListener('mousemove', (e) => {
       targetMouseX = (e.clientX / window.innerWidth) * 2 - 1;
       targetMouseY = -(e.clientY / window.innerHeight) * 2 + 1;
     });
 
-    window.addEventListener('touchmove', e => {
+    window.addEventListener('touchmove', (e) => {
       if (e.touches && e.touches[0]) {
         targetMouseX = (e.touches[0].clientX / window.innerWidth) * 2 - 1;
         targetMouseY = -(e.touches[0].clientY / window.innerHeight) * 2 + 1;
@@ -204,22 +293,18 @@ export function initCanvas3D() {
     }, { passive: true });
   }
 
-  // Animation loop variables
-  let idleRotX = 0;
-  let idleRotY = 0;
-  let idleRot2X = 0;
-  let idleRot2Y = 0;
-
+  // --- Render & Animation Loop ---
   let animFrameId = null;
   let isHeroVisible = true;
+  const clock = new THREE.Clock();
 
   function renderFrame() {
     renderer.render(scene, camera);
   }
 
   if (reduced) {
-    mesh1.position.set(targetBaseX1, targetBaseY1, targetBaseZ1);
-    mesh2.position.set(targetBaseX2, targetBaseY2, targetBaseZ2);
+    wordmarkGroup.position.set(targetBaseX, targetBaseY, targetBaseZ);
+    wordmarkGroup.rotation.set(-0.06, 0.18, 0.02);
     renderFrame();
     return () => {
       window.removeEventListener('resize', updateResponsiveBounds);
@@ -230,76 +315,71 @@ export function initCanvas3D() {
   function animate() {
     if (!isHeroVisible) {
       animFrameId = null;
-      return; // Pause off-screen!
+      return; // Suspend render loop when offscreen
     }
 
     animFrameId = requestAnimationFrame(animate);
 
-    // Smooth easing on mouse coordinates
-    currentMouseX += (targetMouseX - currentMouseX) * 0.045;
-    currentMouseY += (targetMouseY - currentMouseY) * 0.045;
+    const delta = clock.getDelta();
+    const elapsedTime = clock.getElapsedTime();
+    const isMobile = window.innerWidth <= 768;
 
-    // Proximity factor: cursor closeness to center/object
-    const dist = Math.sqrt(currentMouseX * currentMouseX + currentMouseY * currentMouseY);
-    const proximity = Math.max(0, 1 - dist * 0.65);
+    // Smooth damping on pointer coordinates
+    currentMouseX += (targetMouseX - currentMouseX) * 0.048;
+    currentMouseY += (targetMouseY - currentMouseY) * 0.048;
 
-    // Scroll progress normalized
-    const scrollT = Math.min(window.scrollY / window.innerHeight, 1.4);
+    // Idle undulating rotation
+    const idleRotX = Math.sin(elapsedTime * 0.65) * 0.06;
+    const idleRotY = Math.cos(elapsedTime * 0.45) * 0.09;
 
-    // Continuous idle rotation + uncoiling spin during entrance
-    idleRotX += 0.0016 + entranceSpinVelocity * 0.5;
-    idleRotY += 0.0022 + entranceSpinVelocity;
+    // Pointer-responsive tilt (orbits toward the cursor like a 3D contact sheet)
+    const tiltX = -currentMouseY * 0.38;
+    const tiltY = currentMouseX * 0.48;
+    const tiltZ = -currentMouseX * 0.08;
 
-    // Apply primary mesh rotation
-    mesh1.rotation.x = idleRotX + currentMouseY * 0.32 + proximity * 0.09;
-    mesh1.rotation.y = idleRotY + currentMouseX * 0.38 + scrollT * 0.03;
-    mesh1.rotation.z = currentMouseX * 0.08;
+    // Uncoiling spin during entrance
+    const spinFactor = entranceSpin * 0.5;
 
-    // Position updates with scroll linkage
-    mesh1.position.x = targetBaseX1 + currentMouseX * 0.3;
-    mesh1.position.y = targetBaseY1 - scrollT * 1.4 + currentMouseY * 0.2;
-    mesh1.position.z = targetBaseZ1;
+    // Scroll linkage: subtle recession on desktop, disabled on mobile for performance
+    const scrollT = isMobile ? 0 : Math.min(window.scrollY / window.innerHeight, 1.2);
 
-    // Secondary object movement
-    if (mesh2.visible) {
-      idleRot2X -= 0.0012 + entranceSpinVelocity * 0.4;
-      idleRot2Y += 0.0018 + entranceSpinVelocity * 0.7;
+    // Apply rotations
+    wordmarkGroup.rotation.x = idleRotX + tiltX + spinFactor;
+    wordmarkGroup.rotation.y = idleRotY + tiltY + spinFactor * 2.0;
+    wordmarkGroup.rotation.z = tiltZ;
 
-      mesh2.rotation.x = idleRot2X - currentMouseY * 0.18;
-      mesh2.rotation.y = idleRot2Y - currentMouseX * 0.22;
-      mesh2.position.x = targetBaseX2 - currentMouseX * 0.25;
-      mesh2.position.y = targetBaseY2 + scrollT * 1.6 - currentMouseY * 0.15;
-      mesh2.position.z = targetBaseZ2;
-    }
+    // Apply positions
+    wordmarkGroup.position.x = targetBaseX + currentMouseX * 0.32;
+    wordmarkGroup.position.y = targetBaseY - scrollT * 1.35 + currentMouseY * 0.22;
+    wordmarkGroup.position.z = targetBaseZ - scrollT * 1.0;
 
-    // Gentle camera parallax
-    camera.position.x += (currentMouseX * 0.35 - camera.position.x) * 0.035;
-    camera.position.y += (currentMouseY * 0.25 - camera.position.y) * 0.035;
-    camera.lookAt(0, 0, 0);
+    // Dynamic ember rim light tracking: slightly orbits opposite cursor to accentuate edge glints
+    emberRimLight1.position.x = 5.5 - currentMouseX * 1.2;
+    emberRimLight1.position.y = 2.5 - currentMouseY * 1.0;
 
     renderFrame();
   }
 
-  // IntersectionObserver pauses RAF when Hero is off-screen
-  let heroObserver = null;
+  // --- Offscreen Viewport Observer (Zero GPU/CPU cost when scrolled away) ---
   if ('IntersectionObserver' in window && heroSection) {
-    heroObserver = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         isHeroVisible = entry.isIntersecting;
-        if (isHeroVisible && !animFrameId) {
+        if (isHeroVisible && !animFrameId && !reduced) {
+          clock.start();
           animate();
         }
       });
     }, { threshold: 0.02 });
-    heroObserver.observe(heroSection);
+
+    observer.observe(heroSection);
   }
 
   animate();
 
   return () => {
-    if (animFrameId) cancelAnimationFrame(animFrameId);
-    if (heroObserver) heroObserver.disconnect();
     window.removeEventListener('resize', updateResponsiveBounds);
+    if (animFrameId) cancelAnimationFrame(animFrameId);
     renderer.dispose();
   };
 }
