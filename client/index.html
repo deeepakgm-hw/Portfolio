@@ -41,6 +41,7 @@
   <link rel="stylesheet" href="css/components/manifesto.css">
   <link rel="stylesheet" href="css/components/work.css">
   <link rel="stylesheet" href="css/components/process.css">
+  <link rel="stylesheet" href="css/components/contact-sheet.css">
   <link rel="stylesheet" href="css/components/contact.css">
 </head>
 <body>
@@ -62,9 +63,9 @@
       <span class="nav-toggle-bar"></span>
     </button>
     <div class="links" id="nav-links">
-      <a href="#work-head">Work</a>
-      <a href="#process">Process</a>
-      <a href="#close">Contact</a>
+      <a href="#work-head">Selected Work</a>
+      <a href="#process">Field Logs</a>
+      <a href="#close">Dispatch</a>
     </div>
   </nav>
 
@@ -78,7 +79,7 @@
       <div class="hero-status-bar mono">
         <div class="status-item">
           <span class="status-dot" aria-hidden="true"></span>
-          <span>AVAILABLE FOR SELECT PROJECTS</span>
+          <span>ARCHIVE // 2026 EDITION</span>
         </div>
         <div class="status-item status-loc">
           <span>BASED IN BENGALURU, INDIA · WORKING WORLDWIDE</span>
@@ -208,80 +209,140 @@
     </div>
     
     <div id="projects-container">
-      <!-- Fallback / Initial Server Rendered Content -->
-      <article class="case case-hero-moment">
-        <div class="case-media"><span class="glyph" aria-hidden="true">01</span></div>
-        <div class="case-body">
-          <div>
-            <p class="tag mono">2025 — Realtime infrastructure</p>
-            <h3 class="serif">Nimbus Sync Engine</h3>
+      <!-- Fallback / Initial Server Rendered Specimen Cards -->
+      <article class="case specimen-card case-hero-moment" id="project-1">
+        <div class="specimen-top-bar">
+          <div class="specimen-pin-wrap">
+            <span class="specimen-pin" aria-hidden="true"></span>
+            <span class="specimen-index-tag mono">SPECIMEN NO. 01 // ARCHIVE RECORD</span>
           </div>
-          <div>
-            <p>Rebuilt the collaboration layer for a 40-person design tool from a polling API to a CRDT-backed WebSocket engine. Cut sync latency from ~800ms to under 60ms and made concurrent editing actually pleasant.</p>
-            <div class="stack">
-              <span>Rust</span><span>WebSockets</span><span>CRDT</span><span>Redis</span>
+          <span class="specimen-taxonomy-tag mono">REALTIME INFRASTRUCTURE</span>
+        </div>
+        <div class="specimen-inner-grid">
+          <div class="case-media"><span class="glyph" aria-hidden="true">01</span></div>
+          <div class="case-body">
+            <div>
+              <div class="specimen-meta-strip mono">
+                <span class="meta-item">[INDEX: 01]</span>
+                <span class="meta-sep">/</span>
+                <span class="meta-item">[YEAR: 2025]</span>
+                <span class="meta-sep">/</span>
+                <span class="meta-item">[LOG: #NIMBUS-CRDT]</span>
+              </div>
+              <h3 class="serif">Nimbus Sync Engine</h3>
+            </div>
+            <div>
+              <p>Rebuilt the collaboration layer for a 40-person design tool from a polling API to a CRDT-backed WebSocket engine. Cut sync latency from ~800ms to under 60ms and made concurrent editing actually pleasant.</p>
+              <div class="stack">
+                <span>Rust</span><span>WebSockets</span><span>CRDT</span><span>Redis</span>
+              </div>
             </div>
           </div>
         </div>
       </article>
-      <article class="case case-editorial-split">
-        <div class="case-body">
-          <p class="tag mono">2024 — Platform migration</p>
-          <h3 class="serif">Atlas Analytics</h3>
-          <p>Led the migration of a legacy reporting stack to a streaming pipeline, replacing 6-hour nightly batch jobs with sub-minute dashboards, without a single day of downtime for finance.</p>
-          <div class="stack">
-            <span>Kafka</span><span>dbt</span><span>Snowflake</span><span>TypeScript</span>
+
+      <article class="case specimen-card case-editorial-split" id="project-2">
+        <div class="specimen-top-bar">
+          <div class="specimen-pin-wrap">
+            <span class="specimen-pin" aria-hidden="true"></span>
+            <span class="specimen-index-tag mono">SPECIMEN NO. 02 // ARCHIVE RECORD</span>
           </div>
+          <span class="specimen-taxonomy-tag mono">PLATFORM MIGRATION</span>
         </div>
-        <div class="case-media"><span class="glyph" aria-hidden="true">02</span></div>
+        <div class="specimen-inner-grid">
+          <div class="case-body">
+            <div class="specimen-meta-strip mono">
+              <span class="meta-item">[INDEX: 02]</span>
+              <span class="meta-sep">/</span>
+              <span class="meta-item">[YEAR: 2024]</span>
+              <span class="meta-sep">/</span>
+              <span class="meta-item">[LOG: #ATLAS-STREAM]</span>
+            </div>
+            <h3 class="serif">Atlas Analytics</h3>
+            <p>Led the migration of a legacy reporting stack to a streaming pipeline, replacing 6-hour nightly batch jobs with sub-minute dashboards, without a single day of downtime for finance.</p>
+            <div class="stack">
+              <span>Kafka</span><span>dbt</span><span>Snowflake</span><span>TypeScript</span>
+            </div>
+          </div>
+          <div class="case-media"><span class="glyph" aria-hidden="true">02</span></div>
+        </div>
       </article>
-      <article class="case">
-        <div class="case-media"><span class="glyph" aria-hidden="true">03</span></div>
-        <div class="case-body">
-          <p class="tag mono">2023 — Design systems</p>
-          <h3 class="serif">Drift Components</h3>
-          <p>Designed and shipped an internal component library adopted across 12 product teams, cutting new-feature build time by roughly a third and finally killing four competing button styles.</p>
-          <div class="stack">
-            <span>React</span><span>Storybook</span><span>Figma Tokens</span>
+
+      <article class="case specimen-card" id="project-3">
+        <div class="specimen-top-bar">
+          <div class="specimen-pin-wrap">
+            <span class="specimen-pin" aria-hidden="true"></span>
+            <span class="specimen-index-tag mono">SPECIMEN NO. 03 // ARCHIVE RECORD</span>
+          </div>
+          <span class="specimen-taxonomy-tag mono">DESIGN SYSTEMS</span>
+        </div>
+        <div class="specimen-inner-grid">
+          <div class="case-media"><span class="glyph" aria-hidden="true">03</span></div>
+          <div class="case-body">
+            <div class="specimen-meta-strip mono">
+              <span class="meta-item">[INDEX: 03]</span>
+              <span class="meta-sep">/</span>
+              <span class="meta-item">[YEAR: 2023]</span>
+              <span class="meta-sep">/</span>
+              <span class="meta-item">[LOG: #DRIFT-UI]</span>
+            </div>
+            <h3 class="serif">Drift Components</h3>
+            <p>Designed and shipped an internal component library adopted across 12 product teams, cutting new-feature build time by roughly a third and finally killing four competing button styles.</p>
+            <div class="stack">
+              <span>React</span><span>Storybook</span><span>Figma Tokens</span>
+            </div>
           </div>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- Engineering Methodology Process -->
+  <!-- Engineering Methodology Process / Field Logs -->
   <section id="process" class="light pad">
     <div class="process-grid">
       <div>
-        <span class="section-tag mono">CHAPTER 03 — HOW I WORK</span>
-        <h2 class="serif">How I<br>Work</h2>
+        <span class="section-tag mono">CHAPTER 03 — FIELD LOGS</span>
+        <h2 class="serif">Field<br>Logs</h2>
+        <span class="process-protocol-tag mono">// ENGINEERING PROTOCOL &amp; LOGBOOK</span>
         <p class="lede">Less about frameworks, more about how a system of people and code stays sane as it grows. A rough version of the loop I run on most projects:</p>
       </div>
       <div class="steps">
         <div class="step">
-          <span class="n mono">01</span>
-          <div>
+          <div class="step-meta">
+            <span class="step-log-tag mono">LOG 01</span>
+            <span class="step-timestamp mono">TIMESTAMP // 08:30 IST</span>
+          </div>
+          <div class="step-content">
             <h4>Find the real constraint</h4>
             <p>Usually it isn't the one in the ticket. I dig until I find the thing actually limiting the system.</p>
           </div>
         </div>
         <div class="step">
-          <span class="n mono">02</span>
-          <div>
+          <div class="step-meta">
+            <span class="step-log-tag mono">LOG 02</span>
+            <span class="step-timestamp mono">TIMESTAMP // 11:45 IST</span>
+          </div>
+          <div class="step-content">
             <h4>Prototype in the ugly version</h4>
             <p>A working, unstyled thing beats a polished mockup for deciding if an idea survives contact with data.</p>
           </div>
         </div>
         <div class="step">
-          <span class="n mono">03</span>
-          <div>
+          <div class="step-meta">
+            <span class="step-log-tag mono">LOG 03</span>
+            <span class="step-timestamp mono">TIMESTAMP // 15:20 IST</span>
+          </div>
+          <div class="step-content">
             <h4>Instrument before you optimize</h4>
             <p>No performance work starts without a number to move. Otherwise it's just vibes with extra steps.</p>
           </div>
         </div>
         <div class="step">
-          <span class="n mono">04</span>
-          <div>
+          <div class="step-meta">
+            <span class="step-log-tag mono">LOG 04</span>
+            <span class="step-timestamp mono">TIMESTAMP // 19:10 IST</span>
+          </div>
+          <div class="step-content">
             <h4>Leave it better documented</h4>
             <p>The next person touching this code is probably me, in six months, having forgotten everything.</p>
           </div>
@@ -301,6 +362,69 @@
       <p class="contact-sub">
         Have a project in mind, a difficult systems problem to solve, or an engineering role open? Send a message or email directly.
       </p>
+    </div>
+
+    <!-- Archival Contact Sheet Widget (Film Proofs with 3D Orbit Tilt) -->
+    <div class="contact-sheet-section" id="contact-sheet-section" aria-label="Archive Specimen Contact Sheet">
+      <div class="contact-sheet-header">
+        <div class="contact-sheet-title">
+          <span>ARCHIVE CONTACT SHEET // SPECIMEN PROOFS</span>
+          <span class="accent-tag mono">[ORBIT: ACTIVE]</span>
+        </div>
+        <div class="contact-sheet-hint mono">Click proof to inspect specimen card ↑</div>
+      </div>
+      <div class="contact-sheet-perspective-wrap">
+        <div class="contact-sheet-grid" id="contact-sheet-grid">
+          <a href="#project-1" class="contact-proof" data-target="project-1" aria-label="Navigate to Specimen 01: Nimbus Sync Engine">
+            <div class="proof-frame-header">
+              <span class="proof-num mono">#01A</span>
+              <span class="proof-kodak mono">ISO 400</span>
+            </div>
+            <div class="proof-media">
+              <span class="proof-glyph">01</span>
+            </div>
+            <div class="proof-footer">
+              <div class="proof-title">Nimbus Sync Engine</div>
+              <div class="proof-meta">
+                <span>CRDT / RUST</span>
+                <span>2025</span>
+              </div>
+            </div>
+          </a>
+          <a href="#project-2" class="contact-proof" data-target="project-2" aria-label="Navigate to Specimen 02: Atlas Analytics">
+            <div class="proof-frame-header">
+              <span class="proof-num mono">#02A</span>
+              <span class="proof-kodak mono">ISO 400</span>
+            </div>
+            <div class="proof-media">
+              <span class="proof-glyph">02</span>
+            </div>
+            <div class="proof-footer">
+              <div class="proof-title">Atlas Analytics</div>
+              <div class="proof-meta">
+                <span>KAFKA / DBT</span>
+                <span>2024</span>
+              </div>
+            </div>
+          </a>
+          <a href="#project-3" class="contact-proof" data-target="project-3" aria-label="Navigate to Specimen 03: Drift Components">
+            <div class="proof-frame-header">
+              <span class="proof-num mono">#03A</span>
+              <span class="proof-kodak mono">ISO 400</span>
+            </div>
+            <div class="proof-media">
+              <span class="proof-glyph">03</span>
+            </div>
+            <div class="proof-footer">
+              <div class="proof-title">Drift Components</div>
+              <div class="proof-meta">
+                <span>REACT / DESIGN</span>
+                <span>2023</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- Live Interactive Contact Form (Positioned below Let's Talk block) -->

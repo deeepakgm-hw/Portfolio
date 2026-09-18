@@ -29,20 +29,32 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 /**
- * Fetch projects from API and render case cards dynamically
+ * Fetch projects from API and render archival specimen cards dynamically
  */
 async function loadProjects() {
   const container = document.getElementById('projects-container');
   if (!container) return;
 
-  const projects = await api.getProjects();
-  if (!projects || projects.length === 0) return;
+  let projects = [];
+  try {
+    projects = await api.getProjects();
+  } catch (err) {
+    console.warn('API getProjects failed, falling back to existing DOM specimens:', err);
+    setupContactSheet();
+    return;
+  }
+
+  if (!projects || projects.length === 0) {
+    setupContactSheet();
+    return;
+  }
 
   // Clear existing static placeholder if any
   container.innerHTML = '';
 
   projects.forEach((proj, idx) => {
     const glyphNum = String(idx + 1).padStart(2, '0');
+    const projectId = `project-${proj.id || (idx + 1)}`;
     const tagsHtml = (proj.stack || [])
       .map(tag => `<span>${escapeHtml(tag)}</span>`)
       .join('');
@@ -51,17 +63,76 @@ async function loadProjects() {
       ? `<img src="${escapeHtml(proj.image || proj.image_url)}" alt="Visual overview and system design for ${escapeHtml(proj.title)}" class="case-img" />`
       : `<span class="glyph" aria-hidden="true">${glyphNum}</span>`;
 
+    const taxonomy = escapeHtml(proj.category || 'SYSTEM SPECIMEN').toUpperCase();
+    const year = escapeHtml(proj.year || '2025');
+    const logRef = `#SPECIMEN-${glyphNum}`;
+
     const article = document.createElement('article');
+    article.id = projectId;
+    article.className = `case specimen-card ${idx === 0 ? 'case-hero-moment' : (idx === 1 ? 'case-editorial-split' : '')}`;
+
+    const topBarHtml = `
+      <div class="specimen-top-bar">
+        <div class="specimen-pin-wrap">
+          <span class="specimen-pin" aria-hidden="true"></span>
+          <span class="specimen-index-tag mono">SPECIMEN NO. ${glyphNum} // ARCHIVE RECORD</span>
+        </div>
+        <span class="specimen-taxonomy-tag mono">${taxonomy}</span>
+      </div>
+    `;
+
+    const metaStripHtml = `
+      <div class="specimen-meta-strip mono">
+        <span class="meta-item">[INDEX: ${glyphNum}]</span>
+        <span class="meta-sep">/</span>
+        <span class="meta-item">[YEAR: ${year}]</span>
+        <span class="meta-sep">/</span>
+        <span class="meta-item">[LOG: ${logRef}]</span>
+      </div>
+    `;
+
     if (idx === 0) {
-      article.className = 'case case-hero-moment';
       article.innerHTML = `
-        <div class="case-media">${mediaHtml}</div>
-        <div class="case-body">
-          <div>
-            <p class="tag mono">${escapeHtml(proj.year || '')} — ${escapeHtml(proj.category || '')}</p>
-            <h3 class="serif">${escapeHtml(proj.title)}</h3>
+        ${topBarHtml}
+        <div class="specimen-inner-grid">
+          <div class="case-media">${mediaHtml}</div>
+          <div class="case-body">
+            <div>
+              ${metaStripHtml}
+              <h3 class="serif">${escapeHtml(proj.title)}</h3>
+            </div>
+            <div>
+              <p>${escapeHtml(proj.description)}</p>
+              <div class="stack">
+                ${tagsHtml}
+              </div>
+            </div>
           </div>
-          <div>
+        </div>
+      `;
+    } else if (idx === 1) {
+      article.innerHTML = `
+        ${topBarHtml}
+        <div class="specimen-inner-grid">
+          <div class="case-body">
+            ${metaStripHtml}
+            <h3 class="serif">${escapeHtml(proj.title)}</h3>
+            <p>${escapeHtml(proj.description)}</p>
+            <div class="stack">
+              ${tagsHtml}
+            </div>
+          </div>
+          <div class="case-media">${mediaHtml}</div>
+        </div>
+      `;
+    } else {
+      article.innerHTML = `
+        ${topBarHtml}
+        <div class="specimen-inner-grid">
+          <div class="case-media">${mediaHtml}</div>
+          <div class="case-body">
+            ${metaStripHtml}
+            <h3 class="serif">${escapeHtml(proj.title)}</h3>
             <p>${escapeHtml(proj.description)}</p>
             <div class="stack">
               ${tagsHtml}
@@ -69,35 +140,126 @@ async function loadProjects() {
           </div>
         </div>
       `;
-    } else if (idx === 1) {
-      article.className = 'case case-editorial-split';
-      article.innerHTML = `
-        <div class="case-body">
-          <p class="tag mono">${escapeHtml(proj.year || '')} — ${escapeHtml(proj.category || '')}</p>
-          <h3 class="serif">${escapeHtml(proj.title)}</h3>
-          <p>${escapeHtml(proj.description)}</p>
-          <div class="stack">
-            ${tagsHtml}
-          </div>
-        </div>
-        <div class="case-media">${mediaHtml}</div>
-      `;
-    } else {
-      article.className = 'case';
-      article.innerHTML = `
-        <div class="case-media">${mediaHtml}</div>
-        <div class="case-body">
-          <p class="tag mono">${escapeHtml(proj.year || '')} — ${escapeHtml(proj.category || '')}</p>
-          <h3 class="serif">${escapeHtml(proj.title)}</h3>
-          <p>${escapeHtml(proj.description)}</p>
-          <div class="stack">
-            ${tagsHtml}
-          </div>
-        </div>
-      `;
     }
     container.appendChild(article);
   });
+
+  // Re-hydrate the contact sheet proofs to match dynamic projects
+  setupContactSheet(projects);
+
+  if (window.ScrollTrigger) {
+    window.ScrollTrigger.refresh();
+  }
+}
+
+/**
+ * Setup 3D pointer-reactive orbit tilt for the contact sheet widget
+ * and handle click-to-scroll navigation to specimen cards
+ */
+function setupContactSheet(projects) {
+  const section = document.getElementById('contact-sheet-section');
+  const grid = document.getElementById('contact-sheet-grid');
+  if (!section || !grid) return;
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // If dynamic projects are passed, render proofs matching the data
+  if (projects && projects.length > 0) {
+    grid.innerHTML = '';
+    projects.forEach((proj, idx) => {
+      const glyphNum = String(idx + 1).padStart(2, '0');
+      const targetId = `project-${proj.id || (idx + 1)}`;
+      const mediaHtml = (proj.image || proj.image_url)
+        ? `<img src="${escapeHtml(proj.image || proj.image_url)}" alt="${escapeHtml(proj.title)}" />`
+        : `<span class="proof-glyph">${glyphNum}</span>`;
+
+      const primaryTag = (proj.stack && proj.stack[0]) ? proj.stack[0].toUpperCase() : 'SYSTEM';
+
+      const proof = document.createElement('a');
+      proof.href = `#${targetId}`;
+      proof.className = 'contact-proof';
+      proof.dataset.target = targetId;
+      proof.setAttribute('aria-label', `Navigate to Specimen ${glyphNum}: ${proj.title}`);
+      proof.innerHTML = `
+        <div class="proof-frame-header">
+          <span class="proof-num mono">#${glyphNum}A</span>
+          <span class="proof-kodak mono">ISO 400</span>
+        </div>
+        <div class="proof-media">${mediaHtml}</div>
+        <div class="proof-footer">
+          <div class="proof-title">${escapeHtml(proj.title)}</div>
+          <div class="proof-meta">
+            <span>${escapeHtml(primaryTag)}</span>
+            <span>${escapeHtml(proj.year || '2025')}</span>
+          </div>
+        </div>
+      `;
+      grid.appendChild(proof);
+    });
+  }
+
+  // Smooth scroll handler on proof click
+  grid.querySelectorAll('.contact-proof').forEach(proof => {
+    proof.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = proof.dataset.target;
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Flash subtle violet highlight border on specimen card
+        targetEl.style.borderColor = 'var(--violet)';
+        targetEl.style.boxShadow = '0 0 32px rgba(108, 92, 231, 0.45)';
+        setTimeout(() => {
+          targetEl.style.borderColor = '';
+          targetEl.style.boxShadow = '';
+        }, 1400);
+      }
+    });
+  });
+
+  // Pointer-reactive 3D orbit tilt
+  if (!reduced && !grid.dataset.tiltBound) {
+    grid.dataset.tiltBound = 'true';
+    let targetTiltX = 0;
+    let targetTiltY = 0;
+    let currentTiltX = 0;
+    let currentTiltY = 0;
+
+    const handlePointerMove = (e) => {
+      const rect = section.getBoundingClientRect();
+      // Calculate cursor position relative to contact sheet center
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const xDist = (e.clientX - centerX) / (rect.width / 2);
+      const yDist = (e.clientY - centerY) / (rect.height / 2);
+
+      // Clamp between -1.2 and 1.2
+      const clampedX = Math.max(-1.2, Math.min(1.2, xDist));
+      const clampedY = Math.max(-1.2, Math.min(1.2, yDist));
+
+      // Orbit tilt: tilt opposite cursor in perspective
+      targetTiltX = -clampedY * 9.5; // degrees rotateX
+      targetTiltY = clampedX * 11.5; // degrees rotateY
+    };
+
+    const handlePointerLeave = () => {
+      targetTiltX = 0;
+      targetTiltY = 0;
+    };
+
+    window.addEventListener('mousemove', handlePointerMove, { passive: true });
+    section.addEventListener('mouseleave', handlePointerLeave);
+
+    const updateTilt = () => {
+      currentTiltX += (targetTiltX - currentTiltX) * 0.075;
+      currentTiltY += (targetTiltY - currentTiltY) * 0.075;
+
+      grid.style.transform = `rotateX(${currentTiltX.toFixed(2)}deg) rotateY(${currentTiltY.toFixed(2)}deg)`;
+      requestAnimationFrame(updateTilt);
+    };
+
+    updateTilt();
+  }
 }
 
 /**

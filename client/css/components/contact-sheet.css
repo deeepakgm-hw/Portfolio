@@ -1,0 +1,203 @@
+/* ==========================================================================
+   Archive Contact Sheet Widget (Photographic Proofs & Pointer-Reactive 3D Tilt)
+   ========================================================================== */
+
+.contact-sheet-section {
+  margin: clamp(48px, 8vh, 80px) 0 clamp(36px, 6vh, 60px);
+  padding: clamp(24px, 4vw, 40px);
+  background: var(--charcoal-2);
+  border: 1px solid var(--hair-dark);
+  border-radius: 4px;
+  position: relative;
+}
+
+.contact-sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--hair-dark);
+}
+
+.contact-sheet-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--muted-dark);
+  text-transform: uppercase;
+}
+
+.contact-sheet-title .accent-tag {
+  color: var(--violet);
+  margin-left: 6px;
+}
+
+.contact-sheet-hint {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted-dark);
+  opacity: 0.8;
+}
+
+/* 3D Perspective Wrapper */
+.contact-sheet-perspective-wrap {
+  perspective: 900px;
+  perspective-origin: center center;
+}
+
+.contact-sheet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 2.5vw, 24px);
+  transform-style: preserve-3d;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Individual Film Proof Card */
+.contact-proof {
+  background: #0E0D0B;
+  border: 1px solid rgba(240, 235, 224, 0.16);
+  border-radius: 2px;
+  padding: 10px 10px 14px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s, box-shadow 0.25s;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+
+.contact-proof:hover {
+  border-color: var(--violet);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 16px rgba(108, 92, 231, 0.2);
+}
+
+.contact-proof:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 3px;
+  border-color: var(--violet);
+}
+
+/* Sprocket / Film Frame Header */
+.proof-frame-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted-dark);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+  padding: 0 2px;
+}
+
+.proof-num {
+  color: var(--ember);
+  font-weight: 600;
+}
+
+.proof-kodak {
+  opacity: 0.5;
+  font-size: 9px;
+}
+
+/* Proof Media Preview Frame */
+.proof-media {
+  aspect-ratio: 16/10;
+  background: #181512;
+  border: 1px solid rgba(240, 235, 224, 0.08);
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.proof-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.85) contrast(1.05);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.contact-proof:hover .proof-media img {
+  transform: scale(1.04);
+  filter: saturate(1.05) contrast(1.1);
+}
+
+.proof-glyph {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 48px);
+  color: rgba(240, 235, 224, 0.15);
+  user-select: none;
+}
+
+/* Proof Footer Label */
+.proof-footer {
+  margin-top: 10px;
+  padding: 0 2px;
+}
+
+.proof-title {
+  font-family: var(--font-serif);
+  font-size: clamp(14px, 1.3vw, 17px);
+  font-weight: 500;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.proof-meta {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--muted-dark);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 680px) {
+  .contact-sheet-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .contact-proof {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding: 10px;
+  }
+
+  .proof-frame-header {
+    display: none;
+  }
+
+  .proof-media {
+    width: 90px;
+    height: 60px;
+    aspect-ratio: auto;
+    flex-shrink: 0;
+  }
+
+  .proof-glyph {
+    font-size: 26px;
+  }
+
+  .proof-footer {
+    margin-top: 0;
+    flex: 1;
+  }
+
+  .proof-title {
+    font-size: 15px;
+  }
+}

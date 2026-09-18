@@ -1,7 +1,7 @@
 /**
- * GSAP & ScrollTrigger reveal animations
- * Enhanced with cinematic section overlap transitions, title-card typography reveals,
- * and modular capability block staggering.
+ * GSAP & ScrollTrigger reveal animations for the Engineering Archive
+ * Features deliberately paced chapter page transitions, pinned header settles,
+ * and specimen card entrance staging.
  */
 export function revealHero() {
   if (!window.gsap) return;
@@ -17,7 +17,7 @@ export function revealHero() {
   gsap.fromTo(
     targets,
     { opacity: 0, y: 30 },
-    { opacity: 1, y: 0, duration: 0.95, stagger: 0.08, ease: 'power3.out' }
+    { opacity: 1, y: 0, duration: 1.1, stagger: 0.08, ease: 'power3.out' }
   );
 }
 
@@ -30,7 +30,7 @@ export function initScrollReveals() {
 
   if (reduced || isMobile) {
     const allTargets = document.querySelectorAll(
-      '.manifesto-left, .capabilities-header, .cap-block, #work-head, .case, #process .process-grid > div:first-child, .steps .step, #close .section-tag, #close .label, #close h2, .contact-card, .close-foot'
+      '.manifesto-left, .capabilities-header, .cap-block, #work-head, .specimen-card, .case, #process .process-grid > div:first-child, .steps .step, .contact-sheet-section, #close .contact-lead, .contact-card, .close-foot'
     );
     allTargets.forEach(el => {
       el.style.opacity = '1';
@@ -39,43 +39,84 @@ export function initScrollReveals() {
     return;
   }
 
-  // 1. Philosophy & Modular Capabilities Dedicated Scroll Transition
+  // 1. Chapter 01: Philosophy & Modular Capabilities Dedicated Scroll Transition
   const manifesto = document.getElementById('manifesto');
   if (manifesto) {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: manifesto,
-        start: 'top 82%',
+        start: 'top 80%',
         once: true
       }
     });
 
     tl.fromTo(
       '#manifesto .manifesto-left',
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
+      { opacity: 0, y: 32 },
+      { opacity: 1, y: 0, duration: 0.85, ease: 'power2.out' }
     )
     .fromTo(
       '#manifesto .capabilities-header',
-      { opacity: 0, y: 22 },
-      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
-      '-=0.45'
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' },
+      '-=0.4'
     )
     .fromTo(
       '#manifesto .cap-block',
-      { opacity: 0, y: 26 },
-      { opacity: 1, y: 0, duration: 0.6, stagger: 0.09, ease: 'power2.out' },
-      '-=0.4'
+      { opacity: 0, y: 28 },
+      { opacity: 1, y: 0, duration: 0.65, stagger: 0.09, ease: 'power2.out' },
+      '-=0.35'
     );
   }
 
-  // 2. Other Standard Scroll Reveals (Case Studies, Steps, Contact)
-  const targets = document.querySelectorAll(
-    '#work-head, .case, #process .process-grid > div:first-child, .steps .step, #close .section-tag, #close .label, #close h2, .contact-card, .close-foot'
-  );
+  // 2. Chapter 02: Specimen Cards Staged Reveal
+  const specimenCards = document.querySelectorAll('.specimen-card, .case');
+  specimenCards.forEach((card, idx) => {
+    // Initial rotation angles matching CSS
+    const initialRot = (idx % 3 === 0) ? -1.2 : (idx % 3 === 1 ? 1.4 : -0.8);
+    gsap.fromTo(
+      card,
+      { opacity: 0, y: 45, rotation: initialRot * 1.6 },
+      {
+        opacity: 1,
+        y: 0,
+        rotation: initialRot,
+        duration: 0.95,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          once: true
+        }
+      }
+    );
+  });
 
-  targets.forEach(el => {
-    el.classList.add('reveal');
+  // 3. Chapter 03: Field Log Steps Progressive Entry
+  const steps = document.querySelectorAll('.steps .step');
+  steps.forEach((step, idx) => {
+    gsap.fromTo(
+      step,
+      { opacity: 0, x: -20 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.75,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: step,
+          start: 'top 88%',
+          once: true
+        }
+      }
+    );
+  });
+
+  // 4. Chapter 04 & Contact Sheet Widget Reveal
+  const contactTargets = document.querySelectorAll(
+    '.contact-sheet-section, #close .contact-lead, .contact-card, .close-foot'
+  );
+  contactTargets.forEach(el => {
     gsap.fromTo(
       el,
       { opacity: 0, y: 32 },
@@ -86,42 +127,81 @@ export function initScrollReveals() {
         ease: 'power2.out',
         scrollTrigger: {
           trigger: el,
-          start: 'top 85%',
+          start: 'top 88%',
           once: true
         }
       }
     );
   });
 
-  // 3. Cinematic Full-Bleed Section Overlap Transitions (Santioni Spirits Inspired)
+  // 5. Deliberate Page-Turn Transitions Between Chapters
+  // Each section recedes into the background with dignified weight as the next chapter turns in
   if (!isMobile && !reduced) {
-    // Hero -> Manifesto: hero recedes into background as manifesto slides up
+    // Hero -> Chapter 01 (Manifesto)
     gsap.to('#hero .hero-inner', {
-      scale: 0.94,
-      opacity: 0.65,
-      ease: 'none',
+      scale: 0.92,
+      opacity: 0.55,
+      y: 40,
+      ease: 'power1.inOut',
       scrollTrigger: {
         trigger: '#manifesto',
         start: 'top bottom',
-        end: 'top 20%',
-        scrub: true
+        end: 'top 15%',
+        scrub: 1.2
       }
     });
 
-    // Work -> Process: work section recedes as process slides up
+    // Chapter 01 -> Chapter 02 (Selected Work)
+    const manifestoSection = document.getElementById('manifesto');
     const workSection = document.getElementById('work');
+    if (manifestoSection && workSection) {
+      gsap.to(manifestoSection, {
+        scale: 0.94,
+        opacity: 0.6,
+        y: 35,
+        transformOrigin: 'center top',
+        ease: 'power1.inOut',
+        scrollTrigger: {
+          trigger: workSection,
+          start: 'top bottom',
+          end: 'top 15%',
+          scrub: 1.2
+        }
+      });
+    }
+
+    // Chapter 02 -> Chapter 03 (Field Logs)
     const processSection = document.getElementById('process');
     if (workSection && processSection) {
       gsap.to(workSection, {
-        scale: 0.95,
-        opacity: 0.7,
+        scale: 0.94,
+        opacity: 0.6,
+        y: 35,
         transformOrigin: 'center top',
-        ease: 'none',
+        ease: 'power1.inOut',
         scrollTrigger: {
           trigger: processSection,
           start: 'top bottom',
           end: 'top 15%',
-          scrub: true
+          scrub: 1.2
+        }
+      });
+    }
+
+    // Chapter 03 -> Chapter 04 (Contact & Dispatch)
+    const closeSection = document.getElementById('close');
+    if (processSection && closeSection) {
+      gsap.to(processSection, {
+        scale: 0.94,
+        opacity: 0.6,
+        y: 35,
+        transformOrigin: 'center top',
+        ease: 'power1.inOut',
+        scrollTrigger: {
+          trigger: closeSection,
+          start: 'top bottom',
+          end: 'top 15%',
+          scrub: 1.2
         }
       });
     }
