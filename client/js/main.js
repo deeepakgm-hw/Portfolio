@@ -290,6 +290,10 @@ function setupContactForm() {
       showStatus('', 'hide');
       if (successEl) successEl.style.display = 'none';
       form.style.display = 'block';
+      const descEl = successEl ? successEl.querySelector('.success-desc') : null;
+      if (descEl) {
+        descEl.innerHTML = 'Thank you for reaching out! I\'ve received your note and will get back to you within a couple of days at <span id="success-user-email" class="highlight-email"></span>.';
+      }
     });
   }
 
@@ -297,26 +301,27 @@ function setupContactForm() {
     e.preventDefault();
 
     const submitBtn = form.querySelector('button[type="submit"]');
-    const nameInput = form.name;
-    const emailInput = form.email;
-    const messageInput = form.message;
-    const website = form.website ? form.website.value : '';
+    const nameInput = form.querySelector('#contact-name') || form.elements?.['name'] || form.name;
+    const emailInput = form.querySelector('#contact-email') || form.elements?.['email'] || form.email;
+    const messageInput = form.querySelector('#contact-message') || form.elements?.['message'] || form.message;
+    const websiteInput = form.querySelector('#contact-website') || form.elements?.['website'] || form.website;
 
-    const name = nameInput.value.trim();
-    const email = emailInput.value.trim();
-    const message = messageInput.value.trim();
+    const name = nameInput ? nameInput.value.trim() : '';
+    const email = emailInput ? emailInput.value.trim() : '';
+    const message = messageInput ? messageInput.value.trim() : '';
+    const website = websiteInput ? websiteInput.value.trim() : '';
 
     let hasError = false;
     if (!name) {
-      nameInput.closest('.form-group')?.classList.add('has-error');
+      nameInput?.closest('.form-group')?.classList.add('has-error');
       hasError = true;
     }
     if (!email || !email.includes('@')) {
-      emailInput.closest('.form-group')?.classList.add('has-error');
+      emailInput?.closest('.form-group')?.classList.add('has-error');
       hasError = true;
     }
     if (!message) {
-      messageInput.closest('.form-group')?.classList.add('has-error');
+      messageInput?.closest('.form-group')?.classList.add('has-error');
       hasError = true;
     }
 
@@ -333,8 +338,18 @@ function setupContactForm() {
 
       await api.submitContact({ name, email, message, website });
 
-      // Success State: show dedicated confirmation view and toast
-      if (userEmailEl) userEmailEl.textContent = email;
+      // Success State: dynamically populate confirmation view with submitted email
+      const userEmail = email;
+      const descEl = successEl ? successEl.querySelector('.success-desc') : null;
+      const emailSpan = document.getElementById('success-user-email');
+
+      if (emailSpan) {
+        emailSpan.textContent = userEmail;
+      }
+      if (descEl) {
+        descEl.innerHTML = `Thank you for reaching out! I've received your note and will get back to you within a couple of days at <span id="success-user-email" class="highlight-email">${escapeHtml(userEmail)}</span>.`;
+      }
+
       form.style.display = 'none';
       if (successEl) successEl.style.display = 'block';
 
