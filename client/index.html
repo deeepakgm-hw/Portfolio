@@ -210,7 +210,7 @@
     
     <div id="projects-container">
       <!-- Fallback / Initial Server Rendered Specimen Cards -->
-      <article class="case specimen-card case-hero-moment" id="project-1">
+      <article class="case specimen-card" id="project-1">
         <div class="specimen-top-bar">
           <div class="specimen-pin-wrap">
             <span class="specimen-pin" aria-hidden="true"></span>
@@ -221,21 +221,17 @@
         <div class="specimen-inner-grid">
           <div class="case-media"><span class="glyph" aria-hidden="true">01</span></div>
           <div class="case-body">
-            <div>
-              <div class="specimen-meta-strip mono">
-                <span class="meta-item">[INDEX: 01]</span>
-                <span class="meta-sep">/</span>
-                <span class="meta-item">[YEAR: 2025]</span>
-                <span class="meta-sep">/</span>
-                <span class="meta-item">[LOG: #NIMBUS-CRDT]</span>
-              </div>
-              <h3 class="serif">Nimbus Sync Engine</h3>
+            <div class="specimen-meta-strip mono">
+              <span class="meta-item">[INDEX: 01]</span>
+              <span class="meta-sep">/</span>
+              <span class="meta-item">[YEAR: 2025]</span>
+              <span class="meta-sep">/</span>
+              <span class="meta-item">[LOG: #NIMBUS-CRDT]</span>
             </div>
-            <div>
-              <p>Rebuilt the collaboration layer for a 40-person design tool from a polling API to a CRDT-backed WebSocket engine. Cut sync latency from ~800ms to under 60ms and made concurrent editing actually pleasant.</p>
-              <div class="stack">
-                <span>Rust</span><span>WebSockets</span><span>CRDT</span><span>Redis</span>
-              </div>
+            <h3 class="serif">Nimbus Sync Engine</h3>
+            <p>Rebuilt the collaboration layer for a 40-person design tool from a polling API to a CRDT-backed WebSocket engine. Cut sync latency from ~800ms to under 60ms and made concurrent editing actually pleasant.</p>
+            <div class="stack">
+              <span>Rust</span><span>WebSockets</span><span>CRDT</span><span>Redis</span>
             </div>
           </div>
         </div>

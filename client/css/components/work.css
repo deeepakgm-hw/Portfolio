@@ -122,34 +122,14 @@
 /* Layout for Card Body & Media */
 .specimen-inner-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.9fr 1.1fr;
   gap: clamp(24px, 4vw, 56px);
   align-items: center;
 }
 
-/* Widescreen Hero Moment Case */
-.case-hero-moment .specimen-inner-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.case-hero-moment .case-media {
-  width: 100%;
-  aspect-ratio: 21/9;
-  max-height: 440px;
-}
-
-.case-hero-moment .case-body {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 48px;
-  align-items: start;
-}
-
-/* Asymmetric Editorial Split (Case 02) */
+/* Alternating Asymmetric Editorial Split (Case 02) */
 .case-editorial-split .specimen-inner-grid {
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1.1fr 0.9fr;
 }
 
 /* Bordered Media Frame with Archival Matting */
@@ -157,21 +137,49 @@
   aspect-ratio: 16/11;
   border-radius: 2px;
   overflow: hidden;
-  background: linear-gradient(135deg, #181512, #241F18);
+  background: radial-gradient(circle at 50% 50%, rgba(108, 92, 231, 0.12), rgba(20, 18, 15, 0.95)), linear-gradient(135deg, #1d1915, #14120F);
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--hair-dark);
   position: relative;
-  padding: 6px;
+  padding: 16px;
   box-shadow: inset 0 0 0 1px rgba(240, 235, 224, 0.06);
 }
 
+/* Archival registration marks in corners */
+.case-media::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid rgba(240, 235, 224, 0.35);
+  border-left: 1px solid rgba(240, 235, 224, 0.35);
+  pointer-events: none;
+}
+
+.case-media::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  border-bottom: 1px solid rgba(240, 235, 224, 0.35);
+  border-right: 1px solid rgba(240, 235, 224, 0.35);
+  pointer-events: none;
+}
+
 .case-media .glyph {
-  font-size: clamp(60px, 12vw, 140px);
-  color: var(--hair-dark);
+  font-size: clamp(64px, 11vw, 130px);
+  color: rgba(240, 235, 224, 0.72);
   font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   user-select: none;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
 }
 
 .case-media .case-img {
@@ -290,13 +298,8 @@
     gap: 20px;
   }
 
-  .case-editorial-split .specimen-inner-grid .case-media {
-    order: 0;
-  }
-
-  .case-hero-moment .case-body {
-    grid-template-columns: 1fr;
-    gap: 16px;
+  .specimen-inner-grid .case-media {
+    order: -1;
   }
 
   .case-media {

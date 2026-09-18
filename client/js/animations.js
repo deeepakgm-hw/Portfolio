@@ -70,22 +70,22 @@ export function initScrollReveals() {
   }
 
   // 2. Chapter 02: Specimen Cards Staged Reveal
-  const specimenCards = document.querySelectorAll('.specimen-card, .case');
+  const specimenCards = document.querySelectorAll('#projects-container .specimen-card');
   specimenCards.forEach((card, idx) => {
     // Initial rotation angles matching CSS
     const initialRot = (idx % 3 === 0) ? -1.2 : (idx % 3 === 1 ? 1.4 : -0.8);
     gsap.fromTo(
       card,
-      { opacity: 0, y: 45, rotation: initialRot * 1.6 },
+      { opacity: 0.25, y: 35, rotation: initialRot * 1.4 },
       {
         opacity: 1,
         y: 0,
         rotation: initialRot,
-        duration: 0.95,
+        duration: 0.85,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: card,
-          start: 'top 85%',
+          start: 'top 92%',
           once: true
         }
       }

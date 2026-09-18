@@ -69,7 +69,7 @@ async function loadProjects() {
 
     const article = document.createElement('article');
     article.id = projectId;
-    article.className = `case specimen-card ${idx === 0 ? 'case-hero-moment' : (idx === 1 ? 'case-editorial-split' : '')}`;
+    article.className = `case specimen-card ${idx % 2 === 1 ? 'case-editorial-split' : ''}`;
 
     const topBarHtml = `
       <div class="specimen-top-bar">
@@ -91,26 +91,8 @@ async function loadProjects() {
       </div>
     `;
 
-    if (idx === 0) {
-      article.innerHTML = `
-        ${topBarHtml}
-        <div class="specimen-inner-grid">
-          <div class="case-media">${mediaHtml}</div>
-          <div class="case-body">
-            <div>
-              ${metaStripHtml}
-              <h3 class="serif">${escapeHtml(proj.title)}</h3>
-            </div>
-            <div>
-              <p>${escapeHtml(proj.description)}</p>
-              <div class="stack">
-                ${tagsHtml}
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-    } else if (idx === 1) {
+    if (idx % 2 === 1) {
+      // Alternating split: Content on left, Media on right (e.g. Specimen 02)
       article.innerHTML = `
         ${topBarHtml}
         <div class="specimen-inner-grid">
@@ -126,6 +108,7 @@ async function loadProjects() {
         </div>
       `;
     } else {
+      // Primary split: Media on left, Content on right (e.g. Specimen 01, Specimen 03)
       article.innerHTML = `
         ${topBarHtml}
         <div class="specimen-inner-grid">
